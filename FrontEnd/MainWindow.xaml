@@ -9,7 +9,17 @@
     <Grid>
         <TabControl HorizontalAlignment="Left" Height="1020" Margin="2,2,0,0" VerticalAlignment="Bottom" Width="1920">
             <TabItem Header="Map">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Tool Box" HorizontalAlignment="Left" VerticalAlignment="Top" Height="990" Width="100">
+                        <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="88" Height="980" VerticalAlignment="Top">
+                            <TreeView Background="Transparent" Margin="0,0,0,10">
+                                <TreeViewItem Header="Tiles"></TreeViewItem>
+                                <TreeViewItem Header="Buildings"></TreeViewItem>
+                                <TreeViewItem Header="Envierment"></TreeViewItem>
+                            </TreeView>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </TabItem>
             <TabItem Header="Sprit">
                 <Grid Background="#FFE5E5E5"/>

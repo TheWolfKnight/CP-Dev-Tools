@@ -25,6 +25,13 @@ namespace CP_Dev_Tools
             InitializeComponent();
         }
 
+        private void New_Click(object sender, RoutedEventArgs e) { }
+        private void Open_Click(object sender, RoutedEventArgs e) { }
+        private void RecentFiles_Click(object sender, RoutedEventArgs e) { }
+        private void Save_Click(object sender, RoutedEventArgs e) { }
+        private void SaveAs_Click(object sender, RoutedEventArgs e) { }
+        private void Import_Click(object sender, RoutedEventArgs e) { }
+        private void Export_Click(object sender, RoutedEventArgs e) { }
 
         /// <summary>
         /// Closes the program
