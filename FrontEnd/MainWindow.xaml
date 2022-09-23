@@ -7,53 +7,60 @@
         mc:Ignorable="d"
         Title="CP Dev Tools" Height="1080" Width="1920">
     <Grid>
-        <TabControl HorizontalAlignment="Left" Height="1020" Margin="2,2,0,0" VerticalAlignment="Bottom" Width="1920">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="New"/>
+                <MenuItem Header="Open"/>
+                <MenuItem Header="Recent Files"></MenuItem>
+                <Separator/>
+                <MenuItem Header="Save"/>
+                <MenuItem Header="Save As"/>
+                <Separator/>
+                <MenuItem Header="Import"/>
+                <MenuItem Header="Export"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="_Edit"></MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="Show"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <TabControl Grid.Row="1">
             <TabItem Header="Map">
-                <Grid Background="#FFE5E5E5">
-                    <GroupBox Header="Tool Box" HorizontalAlignment="Left" VerticalAlignment="Top" Height="990" Width="100">
-                        <Grid Background="#FFE5E5E5" HorizontalAlignment="Left" Width="88" Height="980" VerticalAlignment="Top">
-                            <TreeView Background="Transparent" Margin="0,0,0,10">
-                                <TreeViewItem Header="Tiles"></TreeViewItem>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition  Width="150"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <GroupBox Grid.Column="0" Header="Tool Box">
+                        <Grid>
+                            <TreeView>
+                                <TreeViewItem Header="Tiles">
+                                    <TreeViewItem Header="Water Tile"/>
+                                </TreeViewItem>
                                 <TreeViewItem Header="Buildings"></TreeViewItem>
                                 <TreeViewItem Header="Envierment"></TreeViewItem>
+                                <TreeViewItem Header="Details"></TreeViewItem>
                             </TreeView>
                         </Grid>
                     </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Sprit">
-                <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Event">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="19*"/>
-                        <ColumnDefinition Width="619*"/>
-                    </Grid.ColumnDefinitions>
-                </Grid>
             </TabItem>
         </TabControl>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="1920" >
-                <MenuItem Header="_File">
-                    <MenuItem Header="New" Click="New_Click"></MenuItem>
-                    <MenuItem Header="Open" Click="Open_Click"></MenuItem>
-                    <MenuItem Header="Recent Files" Click="RecentFiles_Click" ></MenuItem>
-                    <Separator/>
-                    <MenuItem Header="Save" Click="Save_Click"/>
-                    <MenuItem Header="Save As" Click="SaveAs_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Import" Click="Import_Click"/>
-                    <MenuItem Header="Export" Click="Export_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Exit" Click="Exit_Click" />
-                </MenuItem>
-                <MenuItem Header="_Edit">
-                </MenuItem>
-                <MenuItem Header="_View">
-                </MenuItem>
-            </Menu>
-        </DockPanel>
-
+        
+        <StatusBar Grid.Row="2">
+        </StatusBar>
     </Grid>
 </Window>
