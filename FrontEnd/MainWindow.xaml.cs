@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -25,5 +22,20 @@ namespace CP_Dev_Tools
             InitializeComponent();
         }
 
+        private void onOpen_Click( object sender, EventArgs e )
+        {
+            using ( OpenFileDialog fileDialog= new OpenFileDialog() )
+            {
+                fileDialog.Filter = "JSON files (*.json)| *.json | All files (*.*) | *.*";
+                fileDialog.FilterIndex = 1;
+                fileDialog.CheckFileExists = true;
+                fileDialog.InitialDirectory = @"C:\";
+
+                if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Console.WriteLine(fileDialog.FileName);
+                }
+            }
+        }
     }
 }

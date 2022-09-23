@@ -16,7 +16,7 @@
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
                 <MenuItem Header="New"/>
-                <MenuItem Header="Open"/>
+                <MenuItem Header="Open" Click="onOpen_Click"/>
                 <MenuItem Header="Recent Files"></MenuItem>
                 <Separator/>
                 <MenuItem Header="Save"/>
@@ -55,6 +55,40 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Sprit">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="150"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Grid.Row="1" Header="Sprite Options">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <GroupBox Grid.Column="0" Header="Sprite Frames">
+                                <Grid>
+                                    <ItemsControl>
+                                        <ItemsControl.ItemContainerStyle>
+                                            <Style>
+                                                <Setter Property="FrameworkElement.Margin" Value="5"/>
+                                            </Style>
+                                        </ItemsControl.ItemContainerStyle>
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <UniformGrid Rows="2" VerticalAlignment="Top"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <Button Content="Idle" Width="55" Height="35"/>
+                                        <Button Content="Attack" Width="55" Height="35"/>
+                                        <Button Content="Move" Width="55" Height="35"/>
+                                        <Button Content="Death" Width="55" Height="35"/>
+                                    </ItemsControl>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
             </TabItem>
             <TabItem Header="Event">
             </TabItem>
