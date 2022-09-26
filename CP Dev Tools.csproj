@@ -59,7 +59,10 @@
     </ApplicationDefinition>
     <Compile Include="Src\CSV.cs" />
     <Compile Include="Src\FileHandling.cs" />
-    <Compile Include="Src\SpriteSet.cs" />
+    <Compile Include="Src\Models\Decals.cs" />
+    <Compile Include="Src\Models\SpriteSet.cs" />
+    <Compile Include="Src\Models\Tile.cs" />
+    <Compile Include="Src\Vector2D.cs" />
     <Page Include="FrontEnd\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -99,6 +102,13 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Gfx\Tiles\GrassTile.png" />
+    <Resource Include="Gfx\Tiles\OceanTile.png" />
+    <Resource Include="Gfx\Tiles\SandTile.png" />
+    <Resource Include="Gfx\Tiles\SnowTile.png" />
+    <Resource Include="Gfx\Tiles\StoneTile.png" />
+    <Resource Include="Gfx\Tiles\VoidTile.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
