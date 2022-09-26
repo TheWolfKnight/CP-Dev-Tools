@@ -49,9 +49,34 @@
                                 <TreeViewItem Header="Buildings"></TreeViewItem>
                                 <TreeViewItem Header="Envierment"></TreeViewItem>
                                 <TreeViewItem Header="Details"></TreeViewItem>
+                                <TreeViewItem Header="Units">
+                                    <TreeViewItem Header="Empty Stack"/>
+                                    <TreeViewItem Header="Random Units"/>
+                                    <TreeViewItem Header="LvL 1 Stack"/>
+                                    <TreeViewItem Header="LvL 2 Stack"/>
+                                    <TreeViewItem Header="LvL 3 Stack"/>
+                                    <TreeViewItem Header="LvL 4 Stack"/>
+                                    <TreeViewItem Header="LvL 5 Stack"/>
+                                    <TreeViewItem Header="LvL 6 Stack"/>
+                                    <TreeViewItem Header="LvL 7 Stack"/>
+                                    <TreeViewItem Header="Heroic Stack"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="Roads">
+                                    <TreeViewItem Header="Dirt Road"/>
+                                    <TreeViewItem Header="Stone Road"/>
+                                    <TreeViewItem Header="Paved Road"/>
+                                </TreeViewItem>
                             </TreeView>
                         </Grid>
                     </GroupBox>
+                    <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Grid>
+                            <Canvas>
+                                
+                            </Canvas>
+                        </Grid>
+                    </ScrollViewer>
+                    
                 </Grid>
             </TabItem>
             <TabItem Header="Sprit">
