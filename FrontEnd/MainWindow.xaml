@@ -34,6 +34,7 @@
         </Menu>
 
         <TabControl Grid.Row="1">
+
             <TabItem Header="Map">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -46,19 +47,27 @@
                                 <TreeViewItem Header="Tiles">
                                     <TreeViewItem Header="Water Tile"/>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Buildings"></TreeViewItem>
-                                <TreeViewItem Header="Envierment"></TreeViewItem>
-                                <TreeViewItem Header="Details"></TreeViewItem>
+                                <TreeViewItem Header="Buildings">
+                                    <TreeViewItem Header="Town"/>
+                                    <TreeViewItem Header="Item Vender"/>
+                                    <TreeViewItem Header=""/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="Envierment">
+                                    <TreeViewItem Header="River"/>
+                                    <TreeViewItem Header="Forest"/>
+                                    <TreeViewItem Header="Lava"/>
+                                    <TreeViewItem Header="Crags"/>
+                                    <TreeViewItem Header="Mountins"/>
+                                </TreeViewItem>
+                                <TreeViewItem Header="Event Triggers">
+                                    <TreeViewItem Header="Walk Trigger"/>
+                                    <TreeViewItem Header="Talk Trigger"/>
+                                    <TreeViewItem Header="Combat Trigger"/>
+                                    <TreeViewItem Header="Collect Trigger"/>
+                                </TreeViewItem>
                                 <TreeViewItem Header="Units">
-                                    <TreeViewItem Header="Empty Stack"/>
                                     <TreeViewItem Header="Random Units"/>
-                                    <TreeViewItem Header="LvL 1 Stack"/>
-                                    <TreeViewItem Header="LvL 2 Stack"/>
-                                    <TreeViewItem Header="LvL 3 Stack"/>
-                                    <TreeViewItem Header="LvL 4 Stack"/>
-                                    <TreeViewItem Header="LvL 5 Stack"/>
-                                    <TreeViewItem Header="LvL 6 Stack"/>
-                                    <TreeViewItem Header="LvL 7 Stack"/>
+                                    <TreeViewItem Header="Empty Stack"/>
                                     <TreeViewItem Header="Heroic Stack"/>
                                 </TreeViewItem>
                                 <TreeViewItem Header="Roads">
@@ -72,13 +81,15 @@
                     <GroupBox Grid.Column="1" Header="Map Editor">
                         <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <Grid>
-                                <Canvas Name="MapCanvas">
+                                <Label Name="testLabel" Content="TBD"/>
+                                <Canvas Name="MapCanvas" Background="Transparent" MouseDown="MapCanvas_MouseDown">
                                 </Canvas>
                             </Grid>
                         </ScrollViewer>
                     </GroupBox>
                 </Grid>
             </TabItem>
+
             <TabItem Header="Sprit">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -120,8 +131,10 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+
             <TabItem Header="Event">
             </TabItem>
+
         </TabControl>
         
         <StatusBar Grid.Row="2">

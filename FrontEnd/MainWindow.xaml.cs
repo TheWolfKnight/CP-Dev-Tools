@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using CP_Dev_Tools.Src.Models;
+
 namespace CP_Dev_Tools
 {
     /// <summary>
@@ -17,9 +19,11 @@ namespace CP_Dev_Tools
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void onOpen_Click( object sender, EventArgs e )
@@ -37,5 +41,17 @@ namespace CP_Dev_Tools
                 }
             }
         }
+
+        private void MapCanvas_MouseDown( object sender, MouseButtonEventArgs e)
+        {
+            if ( e.LeftButton != MouseButtonState.Pressed )
+                return;
+
+
+
+            // Makes sure this does not get called after im done with the edit
+            e.Handled = true;
+        }
+
     }
 }
