@@ -8,12 +8,14 @@ namespace CP_Dev_Tools.Src.Models
 {
     public class Tile
     {
-        public TileSurface Surface { get; private set; }
-        public TileDecal TileDecal { get; private set; }
+        public string TileID { get; private set; }
+        public TileSurface Surface { get; set; }
+        public TileDecal TileDecal { get; set; }
         public Vector2D Coordinates { get; private set; }
 
         public Tile(int x, int y, TileSurface surface )
         {
+            TileID = $"{x}:{y}";
             Coordinates = new Vector2D(x, y);
             Surface = surface;
         }

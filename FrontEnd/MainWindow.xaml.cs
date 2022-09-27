@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using CP_Dev_Tools.Src;
+using CP_Dev_Tools.FrontEnd;
 using CP_Dev_Tools.Src.Models;
 
 namespace CP_Dev_Tools
@@ -20,10 +22,17 @@ namespace CP_Dev_Tools
     public partial class MainWindow : Window
     {
 
+        private CanvasManager Manager;
+        public int[] ResizeValues { private get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+        }
 
+        private void MainWindow_Init(object sender, EventArgs e)
+        {
+            Manager = new CanvasManager(this.MapCanvas);
         }
 
         private void onOpen_Click( object sender, EventArgs e )
@@ -42,16 +51,28 @@ namespace CP_Dev_Tools
             }
         }
 
+
+        public void EditChangeMapSize_Click( object sender, EventArgs e )
+        {
+            ResizeWindow resizeWindow = new ResizeWindow();
+            resizeWindow.Caller = this;
+            resizeWindow.Show();
+
+            if (ResizeValues is null)
+                return;
+
+            Manager.ResizeCanvas(ResizeValues);
+            ResizeValues = null;
+        }
+
+
         private void MapCanvas_MouseDown( object sender, MouseButtonEventArgs e)
         {
             if ( e.LeftButton != MouseButtonState.Pressed )
                 return;
 
-
-
             // Makes sure this does not get called after im done with the edit
             e.Handled = true;
         }
-
     }
 }

@@ -57,11 +57,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="FrontEnd\SizeWindow.xaml.cs">
+      <DependentUpon>SizeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Src\CanvasManager.cs" />
     <Compile Include="Src\CSV.cs" />
     <Compile Include="Src\FileHandling.cs" />
     <Compile Include="Src\Models\Decals.cs" />
     <Compile Include="Src\Models\SpriteSet.cs" />
     <Compile Include="Src\Models\Tile.cs" />
+    <Compile Include="Src\TileManager.cs" />
     <Compile Include="Src\Vector2D.cs" />
     <Page Include="FrontEnd\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +80,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="FrontEnd\SizeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

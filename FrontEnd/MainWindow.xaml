@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CP_Dev_Tools"
         mc:Ignorable="d"
-        Title="CP Dev Tools" Height="1080" Width="1920">
+        Title="CP Dev Tools" Height="1080" Width="1920" Initialized="MainWindow_Init">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -27,7 +27,9 @@
                 <Separator/>
                 <MenuItem Header="Exit"/>
             </MenuItem>
-            <MenuItem Header="_Edit"></MenuItem>
+            <MenuItem Header="_Edit">
+                <MenuItem Header="Change map size" Click="EditChangeMapSize_Click"/>
+            </MenuItem>
             <MenuItem Header="_View">
                 <MenuItem Header="Show"></MenuItem>
             </MenuItem>
@@ -79,12 +81,9 @@
                         </Grid>
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Map Editor">
-                        <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                            <Grid>
-                                <Label Name="testLabel" Content="TBD"/>
-                                <Canvas Name="MapCanvas" Background="Transparent" MouseDown="MapCanvas_MouseDown">
-                                </Canvas>
-                            </Grid>
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                            <Canvas Name="MapCanvas">
+                            </Canvas>
                         </ScrollViewer>
                     </GroupBox>
                 </Grid>
