@@ -84,7 +84,7 @@ namespace CP_Dev_Tools.Src
                 x += TileDims[0] * .5d;
 
             img.Margin = new Thickness(x, changer.replacer.Coordinates.Y, 0,0);
-            // TBD
+            MapCanvas.Children.Add(img);
 
         }
 

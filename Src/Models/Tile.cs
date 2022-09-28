@@ -20,8 +20,14 @@ namespace CP_Dev_Tools.Src.Models
             Surface = surface;
         }
 
+        public void SetDecal( TileDecal decal )
+        {
+            TileDecal = decal;
+        }
+
         public void SetSurface( TileSurface surface )
         {
+
             Surface = surface;
         }
 
