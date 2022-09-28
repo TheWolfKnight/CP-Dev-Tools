@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 
 
-namespace CP_Dev_Tools.FrontEnd
+namespace CP_Dev_Tools.Frontend
 {
     /// <summary>
     /// Interaction logic for ResizeWindow.xaml
@@ -21,25 +21,29 @@ namespace CP_Dev_Tools.FrontEnd
 
         private void acceptButton_Click( object sender, EventArgs _ )
         {
+
+            MessageBoxResult result = MessageBox.Show($"This action can remove some of your progess if not carful {System.Environment.NewLine}Are you sure?", "Warning", MessageBoxButton.YesNo);
+
+            if (!(result is MessageBoxResult.Yes))
+                this.Close();
+
             int x, y;
             try
             {
-                x = int.Parse(GetContent(this.xResize));
-                y = int.Parse(GetContent(this.yResize));
+                x = int.Parse(GetRichTextBoxContent(this.xResize));
+                y = int.Parse(GetRichTextBoxContent(this.yResize));
                 Caller.ResizeValues = new int[] { x, y };
-
+                this.Close();
             } catch ( FormatException __ )
             {
                 this.errLabel.Visibility = Visibility.Visible;
             }
         }
 
-        private string GetContent( RichTextBox textBox )
+        private string GetRichTextBoxContent( RichTextBox textBox )
         {
             TextRange range = new TextRange(textBox.Document.ContentStart, textBox.Document.ContentEnd);
             return range.Text;
         }
-
-
     }
 }

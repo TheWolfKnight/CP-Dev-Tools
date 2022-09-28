@@ -22,6 +22,26 @@ namespace CP_Dev_Tools.Src.Models
         {
             Decal = decal;
             
+            switch ( decal )
+            {
+                case Decals.Town:
+                    break;
+                case Decals.Road:
+                    break;
+                case Decals.River:
+                    break;
+                case Decals.Mountin:
+                    break;
+                case Decals.Forest:
+                    break;
+                case Decals.Hils:
+                    break;
+                default:
+                    throw new Exception("Unrechable code");
+            }
+
+            return;
+
         }
     }
 
@@ -31,6 +51,7 @@ namespace CP_Dev_Tools.Src.Models
         Road,
         River,
         Mountin,
+        Hils,
         Forest,
     }
 
