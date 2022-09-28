@@ -19,7 +19,7 @@ namespace CP_Dev_Tools.Src
     {
         public Canvas MapCanvas { get; set; }
 
-        private const string TilePrefix = @"..\Gfx\Tiles\";
+        private readonly string TilePrefix = $@"{Environment.CurrentDirectory}\Gfx\Tiles\";
         private readonly int[] TileDims = new int[2] { 26, 23 };
 
         private TileManager TileManagerHolder;
@@ -31,7 +31,7 @@ namespace CP_Dev_Tools.Src
 
 
         /// <summary>
-        /// 
+        /// Draws the initial canvas element when the map is created.
         /// </summary>
         /// <param name="mapDims"> The dimentions of the map that will be created on the inital load </param>
         /// <param name="defualtSurface"> The default surface tile to be drawn. Defualt value: TileSurface.Void </param>
@@ -59,11 +59,13 @@ namespace CP_Dev_Tools.Src
             Image img = GenerateImage(toDraw.Surface);
 
             double x = toDraw.Coordinates.X * TileDims[0];
+            double y = toDraw.Coordinates.Y * TileDims[1];
 
-            if (toDraw.Coordinates.X % 2 != 0)
-                x += TileDims[0] * .5d;
-
-            img.Margin = new Thickness(x, toDraw.Coordinates.Y, 0, 0);
+            if (toDraw.Coordinates.Y % 2 != 0)
+                x += 12;
+            
+            img.Margin = new Thickness(x, y, 0, 0);
+            MapCanvas.Children.Add(img);
         }
 
         /// <summary>
@@ -87,10 +89,10 @@ namespace CP_Dev_Tools.Src
         }
 
         /// <summary>
-        /// 
+        /// Generates an image instance used when appending to the canvas children.
         /// </summary>
         /// <param name="surface"></param>
-        /// <returns></returns>
+        /// <returns> The Image instance that is created for the draw call </returns>
         private Image GenerateImage( TileSurface surface )
         {
             Image img = new Image();
@@ -107,7 +109,7 @@ namespace CP_Dev_Tools.Src
 
 
         /// <summary>
-        /// 
+        /// Resizes the canvas to a specified grid size. WARNING: this can delete progress if the size is lowerd.
         /// </summary>
         /// <param name="resizeValues"> The XY values for the new tile set </param>
         /// <param name="defualtSurface"> The default tile to be placed when the reszie results in a bigger surface. Defualt surface: TileSurface.Void </param>

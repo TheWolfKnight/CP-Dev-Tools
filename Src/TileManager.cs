@@ -24,7 +24,7 @@ namespace CP_Dev_Tools.Src
         {
             for (int i = 0; i < Dims[0]; i++)
             {
-                for (int j = 0; i < Dims[1]; i++)
+                for (int j = 0; j < Dims[1]; j++)
                 {
                     TileSet[i, j] = new Tile(j, i, tileSurface);
                 }

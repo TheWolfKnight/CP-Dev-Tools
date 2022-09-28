@@ -41,6 +41,9 @@ namespace CP_Dev_Tools
         private void MainWindow_Init(object sender, EventArgs e)
         {
             Manager = new CanvasManager(this.MapCanvas);
+
+            Manager.DrawInitial(new int[2] { 2, 2 });
+
         }
 
 
@@ -86,7 +89,6 @@ namespace CP_Dev_Tools
         }
 
 
-
         /// <summary>
         /// Spawns a new saving thread, that can save the current content in the background, while you still work
         /// </summary>
@@ -119,7 +121,7 @@ namespace CP_Dev_Tools
             using ( FolderBrowserDialog folderDialog = new FolderBrowserDialog() )
             {
                 folderDialog.ShowNewFolderButton = true;
-                
+
                 if ( folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK )
                 {
                     if (!(SavingThread is null))
