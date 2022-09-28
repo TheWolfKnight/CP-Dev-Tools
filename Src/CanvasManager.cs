@@ -59,12 +59,9 @@ namespace CP_Dev_Tools.Src
             Image img = GenerateImage(toDraw.Surface);
 
             double x = toDraw.Coordinates.X * TileDims[0];
-            double y = toDraw.Coordinates.Y * TileDims[1] * .5;
+            double y = toDraw.Coordinates.Y * TileDims[1];
 
             if (x > 0)
-                x += 26;
-
-            if (toDraw.Coordinates.Y % 2 != 0)
                 x += 26;
             
             img.Margin = new Thickness(x, y, 0, 0);
