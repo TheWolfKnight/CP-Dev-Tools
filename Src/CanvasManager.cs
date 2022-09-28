@@ -59,10 +59,13 @@ namespace CP_Dev_Tools.Src
             Image img = GenerateImage(toDraw.Surface);
 
             double x = toDraw.Coordinates.X * TileDims[0];
-            double y = toDraw.Coordinates.Y * TileDims[1];
+            double y = toDraw.Coordinates.Y * TileDims[1] * .5;
+
+            if (x > 0)
+                x += 26;
 
             if (toDraw.Coordinates.Y % 2 != 0)
-                x += 12;
+                x += 26;
             
             img.Margin = new Thickness(x, y, 0, 0);
             MapCanvas.Children.Add(img);
@@ -77,14 +80,21 @@ namespace CP_Dev_Tools.Src
         /// </param>
         private void Draw( TileChange changer )
         {
-            Image img = GenerateImage(changer.replacer.Surface);
-            double x = changer.replacer.Coordinates.X * TileDims[0];
+            Tile toDraw = changer.replacer;
+            Image img = GenerateImage(toDraw.Surface);
 
-            if (changer.replacer.Coordinates.X % 2 != 0)
-                x += TileDims[0] * .5d;
+            double x = toDraw.Coordinates.X * TileDims[0];
+            double y = toDraw.Coordinates.Y * TileDims[1] * .5;
 
-            img.Margin = new Thickness(x, changer.replacer.Coordinates.Y, 0,0);
-            MapCanvas.Children.Add(img);
+            if (x > 0)
+                x += 26;
+
+            if (toDraw.Coordinates.Y % 2 != 0)
+                x += 26;
+
+            img.Margin = new Thickness(x, y, 0, 0);
+            
+            // TODO: Write a replacing algo
 
         }
 

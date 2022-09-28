@@ -17,7 +17,7 @@ namespace CP_Dev_Tools.Src
         public TileManager( int[] dims, TileSurface tileSurface )
         {
 
-            TileSet = new Tile[dims[0], dims[1]];
+            TileSet = new Tile[dims[1], dims[0]];
             Dims = dims;
             DefualtSurface = tileSurface;
             InitArray();

@@ -42,7 +42,7 @@ namespace CP_Dev_Tools
         {
             Manager = new CanvasManager(this.MapCanvas);
 
-            Manager.DrawInitial(new int[2] { 2, 2 });
+            Manager.DrawInitial(new int[2] { 25, 30 });
 
         }
 
