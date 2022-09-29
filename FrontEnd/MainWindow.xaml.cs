@@ -25,11 +25,11 @@ namespace CP_Dev_Tools
     public partial class MainWindow : Window
     {
 
-        public int[] ResizeValues { private get; set; }
-
         private string PathToCurrentCase;
         private CanvasManager Manager;
         private Thread SavingThread;
+
+        private bool[] SaveableElements = new bool[3] { false, false, false };
 
 
         public MainWindow()
@@ -41,11 +41,7 @@ namespace CP_Dev_Tools
         private void MainWindow_Init(object sender, EventArgs e)
         {
             Manager = new CanvasManager(this.MapCanvas);
-
-            Manager.DrawInitial(new int[2] { 25, 30 });
-
         }
-
 
         private void onOpen_Click( object sender, EventArgs e )
         {
@@ -65,18 +61,6 @@ namespace CP_Dev_Tools
         }
 
 
-        public void EditChangeMapSize_Click( object sender, EventArgs e )
-        {
-            ResizeWindow resizeWindow = new ResizeWindow();
-            resizeWindow.Caller = this;
-            resizeWindow.Show();
-
-            if (ResizeValues is null)
-                return;
-
-            Manager.ResizeCanvas(ResizeValues);
-            ResizeValues = null;
-        }
 
 
         private void MapCanvas_MouseDown( object sender, MouseButtonEventArgs e)
@@ -101,6 +85,7 @@ namespace CP_Dev_Tools
             return t;
         }
 
+
         private void Save_Click( object sender, EventArgs e )
         {
 
@@ -114,6 +99,7 @@ namespace CP_Dev_Tools
             SavingThread.Start();
             
         }
+
 
         private void SaveAs_Click( object sender, EventArgs e )
         {
@@ -155,5 +141,36 @@ namespace CP_Dev_Tools
             }
             SavingThread = null;
         }
+        
+
+        public void NewMap_Click( object sender, EventArgs e )
+        {
+            SizeWindow sizeWindow = new SizeWindow();
+            sizeWindow.Caller = this;
+            sizeWindow.New = true;
+            sizeWindow.Show();
+        }
+
+        public void EditChangeMapSize_Click(object sender, EventArgs e)
+        {
+            SizeWindow sizeWindow = new SizeWindow();
+            sizeWindow.Caller = this;
+            sizeWindow.New = false;
+            sizeWindow.Show();
+        }
+
+        public void SizeWindowCall(int[] dims, bool init = false )
+        {
+            if ( init )
+            {
+                Manager.DrawInitial(dims);
+                return;
+            }
+
+            Manager.ResizeCanvas(dims);
+
+        }
+
+
     }
 }

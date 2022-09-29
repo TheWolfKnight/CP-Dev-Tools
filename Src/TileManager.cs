@@ -64,20 +64,44 @@ namespace CP_Dev_Tools.Src
         }
 
         /// <summary>
-        /// 
+        /// Changes the size of the TileSet. WARNING: This will result in lost data for a downsize, use at own descresion.
         /// </summary>
-        /// <param name="coords"></param>
-        /// <param name="tile"></param>
-        public void ChangeTile( int[] coords, Tile tile)
+        /// <param name="dims"> The new dimensions for the TileSet variable </param>
+        /// <param name="defaultSurface"> Required for an upscale, will be the default parameters for the new tiles </param>
+        public void Resize(int[] dims, TileSurface defaultSurface=TileSurface.Void)
         {
-            Tile activeTile = TileSet[coords[0], coords[1]];
+            Tile[,] tiles = new Tile[dims[0], dims[1]];
+
+            for (int i = 0; i < dims[0]; i++)
+            {
+                for (int j = 0; j < dims[1]; j++)
+                {
+                    if (i < Dims[0] && j < Dims[1])
+                        tiles[i, j] = TileSet[i, j];
+                    else
+                        tiles[i, j] = new Tile(j, i, defaultSurface);
+                }
+            }
+
+            TileSet = (Tile[,])tiles.Clone();
+            return;
+
+        }
+
+        /// <summary>
+        /// Replaces the data of a specific tile, at the given coordinates
+        /// </summary>
+        /// <param name="tile"> The new data for a tile </param>
+        public void ChangeTile(Tile tile)
+        {
+
+            Tile activeTile = TileSet[tile.Coordinates.Y, tile.Coordinates.X];
             activeTile.SetSurface(tile.Surface);
             activeTile.SetDecal(tile.TileDecal);
 
-            TileSet[coords[0], coords[1]] = activeTile;
+            TileSet[tile.Coordinates.Y, tile.Coordinates.X] = activeTile;
 
             return;
-
         }
 
     }

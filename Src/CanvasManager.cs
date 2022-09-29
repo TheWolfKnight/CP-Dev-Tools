@@ -21,7 +21,7 @@ namespace CP_Dev_Tools.Src
 
         private readonly string TilePrefix = $@"{Environment.CurrentDirectory}\Gfx\Tiles\";
         private readonly int[] TileDims = new int[2] { 26, 23 };
-        private readonly double[] TileHalfDims = new double[2] { 13d, 11.5d };
+        private readonly int TileHalfWidth = 13;
 
         private TileManager TileManagerHolder;
 
@@ -38,6 +38,7 @@ namespace CP_Dev_Tools.Src
         /// <param name="defualtSurface"> The default surface tile to be drawn. Defualt value: TileSurface.Void </param>
         public void DrawInitial( int[] mapDims, TileSurface defualtSurface = TileSurface.Void )
         {
+            Console.WriteLine("Here");
             MapCanvas.Width = TileDims[0] * mapDims[0];
             MapCanvas.Height = TileDims[1] * mapDims[1];
 
@@ -59,13 +60,13 @@ namespace CP_Dev_Tools.Src
         {
             Image img = GenerateImage(toDraw.Surface);
 
-            double x = (toDraw.Coordinates.X * TileDims[0]) + TileHalfDims[0];
-            double y = (toDraw.Coordinates.Y * TileDims[1]) + TileHalfDims[1];
+            double x = (toDraw.Coordinates.X * TileDims[0]) + TileDims[0];
+            double y = (toDraw.Coordinates.Y * TileDims[1]) + TileDims[1];
 
             if (toDraw.Coordinates.Y % 2 != 0)
-                x += TileHalfDims[0];
+                x += TileHalfWidth;
 
-            img.Margin = new Thickness(x, y, 0, 0);
+            img.Margin = new Thickness(x*1.15d, y*1.15d, 0, 0);
             MapCanvas.Children.Add(img);
         }
 
@@ -90,12 +91,14 @@ namespace CP_Dev_Tools.Src
 
         /// <summary>
         /// Generates an image instance used when appending to the canvas children.
+        /// Rotates the given image by 90 degress to achive the correct result. Do not let people make their own tile types.
         /// </summary>
         /// <param name="surface"></param>
         /// <returns> The Image instance that is created for the draw call </returns>
         private Image GenerateImage( TileSurface surface )
         {
             Image img = new Image();
+            
             BitmapImage bitmap = new BitmapImage(new Uri($"{TilePrefix}{surface.ToString()}Tile.png"));
             img.Source = bitmap;
             img.Width = bitmap.Width;
@@ -121,6 +124,10 @@ namespace CP_Dev_Tools.Src
         /// <param name="defualtSurface"> The default tile to be placed when the reszie results in a bigger surface. Defualt surface: TileSurface.Void </param>
         public void ResizeCanvas( int[] resizeValues, TileSurface defualtSurface = TileSurface.Void )
         {
+            TileManagerHolder.Resize(resizeValues, defualtSurface);
+
+            MapCanvas.Width = resizeValues[0] * TileDims[0];
+            MapCanvas.Height = resizeValues[1] * TileDims[1];
 
         }
 

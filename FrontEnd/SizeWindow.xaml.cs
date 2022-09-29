@@ -9,30 +9,33 @@ namespace CP_Dev_Tools.Frontend
     /// <summary>
     /// Interaction logic for ResizeWindow.xaml
     /// </summary>
-    public partial class ResizeWindow : Window
+    public partial class SizeWindow : Window
     {
 
         public MainWindow Caller { get; set; }
+        public bool New { get; set; }
 
-        public ResizeWindow()
+        public SizeWindow()
         {
             InitializeComponent();
         }
 
         private void acceptButton_Click( object sender, EventArgs _ )
         {
+            if (!New)
+            {
+                MessageBoxResult result = MessageBox.Show($"This action can remove some of your progess if not carful {System.Environment.NewLine}Are you sure?", "Warning", MessageBoxButton.YesNo);
 
-            MessageBoxResult result = MessageBox.Show($"This action can remove some of your progess if not carful {System.Environment.NewLine}Are you sure?", "Warning", MessageBoxButton.YesNo);
-
-            if (!(result is MessageBoxResult.Yes))
-                this.Close();
+                if (!(result is MessageBoxResult.Yes))
+                    this.Close();
+            }
 
             int x, y;
             try
             {
                 x = int.Parse(GetRichTextBoxContent(this.xResize));
                 y = int.Parse(GetRichTextBoxContent(this.yResize));
-                Caller.ResizeValues = new int[] { x, y };
+                Caller.SizeWindowCall(new int[2] { x, y }, init: New);
                 this.Close();
             } catch ( FormatException __ )
             {
@@ -45,5 +48,6 @@ namespace CP_Dev_Tools.Frontend
             TextRange range = new TextRange(textBox.Document.ContentStart, textBox.Document.ContentEnd);
             return range.Text;
         }
+
     }
 }

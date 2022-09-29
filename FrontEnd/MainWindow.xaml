@@ -28,6 +28,7 @@
                 <MenuItem Header="Exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
+                <MenuItem Header="New map" Click="NewMap_Click"/>
                 <MenuItem Header="Change map size" Click="EditChangeMapSize_Click"/>
             </MenuItem>
             <MenuItem Header="_View">
