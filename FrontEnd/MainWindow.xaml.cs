@@ -65,11 +65,28 @@ namespace CP_Dev_Tools
 
         private void MapCanvas_MouseDown( object sender, MouseButtonEventArgs e)
         {
-            if ( e.LeftButton != MouseButtonState.Pressed )
-                return;
 
-            // Makes sure this does not continue doing something after im done with the edit
-            e.Handled = true;
+            if (e.LeftButton != MouseButtonState.Pressed) {
+                e.Handled = true;
+                return;
+            }
+
+            try
+            {
+                Image target = (Image)e.Source;
+
+                
+
+            }
+            catch (InvalidCastException _)
+            {
+                // Just making sure nothing happens here
+            }
+            finally
+            {
+                // Makes sure this does not continue doing something after im done with the edit
+                e.Handled = true;
+            }
         }
 
 
@@ -110,7 +127,7 @@ namespace CP_Dev_Tools
 
                 if ( folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK )
                 {
-                    if (!(SavingThread is null))
+                    if (SavingThread.IsAlive)
                         SavingThread.Abort();
 
                     string path = folderDialog.SelectedPath;
@@ -139,7 +156,6 @@ namespace CP_Dev_Tools
                     return;
                 WriteFile(path, content, overwrite: true);
             }
-            SavingThread = null;
         }
         
 
@@ -162,13 +178,9 @@ namespace CP_Dev_Tools
         public void SizeWindowCall(int[] dims, bool init = false )
         {
             if ( init )
-            {
                 Manager.DrawInitial(dims);
-                return;
-            }
-
-            Manager.ResizeCanvas(dims);
-
+            else
+                Manager.ResizeCanvas(dims);
         }
 
 

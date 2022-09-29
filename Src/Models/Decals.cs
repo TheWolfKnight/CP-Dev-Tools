@@ -9,6 +9,7 @@ namespace CP_Dev_Tools.Src.Models
 {
     public class TileDecal
     {
+        public Tile Owner { get; set; }
         public float MovementMod { get; private set; }
         public Decals Decal { get; private set; }
 

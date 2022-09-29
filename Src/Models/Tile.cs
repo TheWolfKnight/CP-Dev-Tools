@@ -22,6 +22,7 @@ namespace CP_Dev_Tools.Src.Models
 
         public void SetDecal( TileDecal decal )
         {
+            decal.Owner = this;
             TileDecal = decal;
         }
 

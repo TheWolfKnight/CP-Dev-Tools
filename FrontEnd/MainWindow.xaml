@@ -83,7 +83,7 @@
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Map Editor">
                         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
-                            <Canvas VerticalAlignment="Top" HorizontalAlignment="Left" Name="MapCanvas">
+                            <Canvas MouseDown="MapCanvas_MouseDown" VerticalAlignment="Top" HorizontalAlignment="Left" Name="MapCanvas">
                             </Canvas>
                         </ScrollViewer>
                     </GroupBox>

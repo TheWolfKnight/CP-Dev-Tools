@@ -38,7 +38,6 @@ namespace CP_Dev_Tools.Src
         /// <param name="defualtSurface"> The default surface tile to be drawn. Defualt value: TileSurface.Void </param>
         public void DrawInitial( int[] mapDims, TileSurface defualtSurface = TileSurface.Void )
         {
-            Console.WriteLine("Here");
             MapCanvas.Width = TileDims[0] * mapDims[0];
             MapCanvas.Height = TileDims[1] * mapDims[1];
 
