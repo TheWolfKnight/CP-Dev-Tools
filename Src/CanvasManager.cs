@@ -21,6 +21,7 @@ namespace CP_Dev_Tools.Src
 
         private readonly string TilePrefix = $@"{Environment.CurrentDirectory}\Gfx\Tiles\";
         private readonly int[] TileDims = new int[2] { 26, 23 };
+        private readonly double[] TileHalfDims = new double[2] { 13d, 11.5d };
 
         private TileManager TileManagerHolder;
 
@@ -58,12 +59,12 @@ namespace CP_Dev_Tools.Src
         {
             Image img = GenerateImage(toDraw.Surface);
 
-            double x = toDraw.Coordinates.X * TileDims[0];
-            double y = toDraw.Coordinates.Y * TileDims[1];
+            double x = (toDraw.Coordinates.X * TileDims[0]) + TileHalfDims[0];
+            double y = (toDraw.Coordinates.Y * TileDims[1]) + TileHalfDims[1];
 
-            if (x > 0)
-                x += 26;
-            
+            if (toDraw.Coordinates.Y % 2 != 0)
+                x += TileHalfDims[0];
+
             img.Margin = new Thickness(x, y, 0, 0);
             MapCanvas.Children.Add(img);
         }
@@ -75,23 +76,15 @@ namespace CP_Dev_Tools.Src
         /// TileChanger structure, containing both the Tile that will be hanged
         /// And the til that will be changed
         /// </param>
-        private void Draw( TileChange changer )
+        public void Draw( TileChange changer )
         {
             Tile toDraw = changer.replacer;
             Image img = GenerateImage(toDraw.Surface);
 
-            double x = toDraw.Coordinates.X * TileDims[0];
-            double y = toDraw.Coordinates.Y * TileDims[1] * .5;
+            img.Margin = changer.ToChange.Margin;
 
-            if (x > 0)
-                x += 26;
-
-            if (toDraw.Coordinates.Y % 2 != 0)
-                x += 26;
-
-            img.Margin = new Thickness(x, y, 0, 0);
-            
-            // TODO: Write a replacing algo
+            MapCanvas.Children.Add(img);
+            MapCanvas.Children.Remove(changer.ToChange);
 
         }
 
@@ -109,6 +102,12 @@ namespace CP_Dev_Tools.Src
             img.Height = bitmap.Height;
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Top;
+
+            RotateTransform transform = new RotateTransform(90);
+            transform.CenterX = TileDims[0] * .5f;
+            transform.CenterY = TileDims[1] * .5f;
+
+            img.RenderTransform = transform;
 
             return img;
 
@@ -132,7 +131,7 @@ namespace CP_Dev_Tools.Src
         /// <param name="change"> The element that the tile, with the same TileID, will be changed into </param>
         public void ChangeTileElement( Tile change )
         {
-            UIElement result = (UIElement)MapCanvas.FindName(change.TileID);
+            Image result = (Image)MapCanvas.FindName(change.TileID);
 
             if (result is null)
             {
@@ -141,7 +140,7 @@ namespace CP_Dev_Tools.Src
 
             TileChange tileChange = new TileChange();
             tileChange.replacer = change;
-            tileChange.toChange = result;
+            tileChange.ToChange = result;
 
             Draw(tileChange);
 
@@ -151,7 +150,7 @@ namespace CP_Dev_Tools.Src
 
     internal struct TileChange
     {
-        public UIElement toChange;
+        public Image ToChange;
         public Tile replacer;
     }
 
