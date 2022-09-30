@@ -20,8 +20,8 @@ namespace CP_Dev_Tools.Src
         public Canvas MapCanvas { get; set; }
 
         private readonly string TilePrefix = $@"{Environment.CurrentDirectory}\Gfx\Tiles\";
-        private readonly int[] TileDims = new int[2] { 26, 23 };
-        private readonly int TileHalfWidth = 13;
+        private readonly int[] TileDims = new int[2] { 22, 26 };
+        private readonly int TileHalfWidth = 11;
 
         private TileManager TileManagerHolder;
 
@@ -38,8 +38,8 @@ namespace CP_Dev_Tools.Src
         /// <param name="defualtSurface"> The default surface tile to be drawn. Defualt value: TileSurface.Void </param>
         public void DrawInitial( int[] mapDims, TileSurface defualtSurface = TileSurface.Void )
         {
-            MapCanvas.Width = TileDims[0] * mapDims[0];
-            MapCanvas.Height = TileDims[1] * mapDims[1];
+            MapCanvas.Width = mapDims[0] * TileDims[0] + 40;
+            MapCanvas.Height = mapDims[0]* TileDims[1];
 
             TileManagerHolder = new TileManager(mapDims, defualtSurface);
 
@@ -52,20 +52,20 @@ namespace CP_Dev_Tools.Src
 
         /// <summary>
         /// Takes a Tile instance and draws an image to the screen with the given elements
-        /// of the Tile
+        /// of the Tile. Need to rework this, it does not work for more than 10 or so tiles in either direction.
         /// </summary>
         /// <param name="toDraw"> The Tile instance to draw to the screen </param>
         private void Draw( Tile toDraw )
         {
             Image img = GenerateImage(toDraw.Surface);
 
-            double x = (toDraw.Coordinates.X * TileDims[0]) + TileDims[0];
-            double y = (toDraw.Coordinates.Y * TileDims[1]) + TileDims[1];
+            double x = toDraw.Coordinates.X * TileDims[0];
+            double y = toDraw.Coordinates.Y * TileDims[1];
 
             if (toDraw.Coordinates.Y % 2 != 0)
                 x += TileHalfWidth;
 
-            img.Margin = new Thickness(x*1.15d, y*1.15d, 0, 0);
+            img.Margin = new Thickness(x, y, 0, 0);
             MapCanvas.Children.Add(img);
         }
 
@@ -105,12 +105,6 @@ namespace CP_Dev_Tools.Src
             img.HorizontalAlignment = HorizontalAlignment.Left;
             img.VerticalAlignment = VerticalAlignment.Top;
 
-            RotateTransform transform = new RotateTransform(90);
-            transform.CenterX = TileDims[0] * .5f;
-            transform.CenterY = TileDims[1] * .5f;
-
-            img.RenderTransform = transform;
-
             return img;
 
         }
@@ -125,8 +119,8 @@ namespace CP_Dev_Tools.Src
         {
             TileManagerHolder.Resize(resizeValues, defualtSurface);
 
-            MapCanvas.Width = resizeValues[0] * TileDims[0];
-            MapCanvas.Height = resizeValues[1] * TileDims[1];
+            MapCanvas.Width = resizeValues[0] * TileDims[0] + TileDims[0];
+            MapCanvas.Height = resizeValues[1] * TileDims[1] + TileDims[1];
 
         }
 
