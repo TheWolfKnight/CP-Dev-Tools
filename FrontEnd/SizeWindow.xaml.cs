@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
+using CP_Dev_Tools.Src.WindowHandles;
 
 namespace CP_Dev_Tools.Frontend
 {
@@ -12,7 +13,7 @@ namespace CP_Dev_Tools.Frontend
     public partial class SizeWindow : Window
     {
 
-        public MainWindow Caller { get; set; }
+        public MainWindowHandle Caller { get; set; }
         public bool New { get; set; }
 
         public SizeWindow()

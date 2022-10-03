@@ -38,17 +38,17 @@ namespace CP_Dev_Tools.Src
         /// <param name="defualtSurface"> The default surface tile to be drawn. Defualt value: TileSurface.Void </param>
         public void DrawInitial( int[] mapDims, TileSurface defualtSurface = TileSurface.Void )
         {
+            MapCanvas.Children.Clear();
+
             MapCanvas.Width = mapDims[0] * TileDims[0] + 40;
-            MapCanvas.Height = mapDims[0]* TileDims[1];
+            MapCanvas.Height = mapDims[1] * 19 + 40;
 
             TileManagerHolder = new TileManager(mapDims, defualtSurface);
 
-            foreach ( Tile tile in TileManagerHolder.TileSet )
-            {
-                Draw(tile);
-            }
+            TileManagerHolder.TileSet.ForEach(yDim => yDim.ForEach(tile => Draw(tile)));
 
         }
+
 
         /// <summary>
         /// Takes a Tile instance and draws an image to the screen with the given elements
@@ -60,7 +60,10 @@ namespace CP_Dev_Tools.Src
             Image img = GenerateImage(toDraw.Surface);
 
             double x = toDraw.Coordinates.X * TileDims[0];
-            double y = toDraw.Coordinates.Y * TileDims[1];
+
+            // Need to put the y down by ca. 3/4 of the total length of the img size, 26/4 = 19.5.
+            // Just don't realy want the .5 in there couse dealing with floats can be bad in big sample sizes.
+            double y = toDraw.Coordinates.Y * 19;
 
             if (toDraw.Coordinates.Y % 2 != 0)
                 x += TileHalfWidth;

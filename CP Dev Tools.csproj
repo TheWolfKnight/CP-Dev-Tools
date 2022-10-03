@@ -81,6 +81,9 @@
     <Compile Include="Src\Models\Tile.cs" />
     <Compile Include="Src\TileManager.cs" />
     <Compile Include="Src\Vector2D.cs" />
+    <Compile Include="Src\WindowHandles\MainWindowHandle.cs" />
+    <Compile Include="Src\WindowHandles\SaveWindowHandle.cs" />
+    <Compile Include="Src\WindowHandles\SizeWindowHandle.cs" />
     <Page Include="Frontend\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
