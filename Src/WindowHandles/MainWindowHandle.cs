@@ -27,6 +27,11 @@ namespace CP_Dev_Tools.Src.WindowHandles
 
         private bool[] SaveableElements = new bool[3] { false, false, false };
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="owner"></param>
         public MainWindowHandle( MainWindow owner )
         {
             Owner = owner;
@@ -119,7 +124,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
             {
                 folderDialog.ShowNewFolderButton = true;
 
-                if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (folderDialog.ShowDialog() == DialogResult.OK)
                 {
                     if (SavingThread.IsAlive)
                         SavingThread.Abort();
@@ -156,6 +161,51 @@ namespace CP_Dev_Tools.Src.WindowHandles
             sizeWindow.Caller = this;
             sizeWindow.New = false;
             sizeWindow.Show();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ClearMapClickEvent()
+        {
+            Manager.MapCanvas.Children.Clear();
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public void EditChildElementMouseDownEvent( FrameworkElement element )
+        {
+
+            bool init = true;
+            int[] dims;
+
+            switch ( element.Name )
+            {
+                case "small":
+                    dims = new int[] { 25, 25 };
+                    break;
+                case "medium":
+                    dims = new int[] { 50, 50 };
+                    break;
+                case "large":
+                    dims = new int[] { 100, 100 };
+                    break;
+                case "ultra_large":
+                    dims = new int[] { 255, 255 };
+                    break;
+                case "custom_size":
+                    throw new Exception("TBD");
+                    break;
+                default:
+                    throw new Exception("Unrechable code");
+            }
+
+            SizeWindowCall(dims, init);
+
         }
 
 

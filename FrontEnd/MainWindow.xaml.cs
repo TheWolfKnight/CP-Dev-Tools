@@ -37,6 +37,7 @@ namespace CP_Dev_Tools
             Handle.InitMainWindow();
         }
 
+
         private void onOpen_Click( object sender, EventArgs e )
         {
             Handle.OpenClickEvent();
@@ -47,7 +48,6 @@ namespace CP_Dev_Tools
         {
             Handle.MapCanvasMouseDownEvent(e);
         }
-
 
 
         private void Save_Click( object sender, EventArgs e )
@@ -61,15 +61,14 @@ namespace CP_Dev_Tools
             Handle.SaveAsClickEvent();
         }
 
-
-        public void NewMap_Click( object sender, EventArgs e )
+        private void ClearMap_Click( object sender, EventArgs e )
         {
-            Handle.NewMapClickEvent();
+            Handle.ClearMapClickEvent();
         }
 
-        public void EditChangeMapSize_Click(object sender, EventArgs e)
+        private void EditChildElement_MouseDown( object sender, MouseButtonEventArgs e )
         {
-            Handle.ChangeSizeClickEvent();
+            Handle.EditChildElementMouseDownEvent( e.OriginalSource as FrameworkElement );
         }
 
     }

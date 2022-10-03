@@ -69,8 +69,11 @@ namespace CP_Dev_Tools.Src
                 x += TileHalfWidth;
 
             img.Margin = new Thickness(x, y, 0, 0);
+            Panel.SetZIndex(img, 0);
             MapCanvas.Children.Add(img);
+
         }
+
 
         /// <summary>
         /// Takes a TileChanger and replaces a tile on the screen with a new Tile.
@@ -90,6 +93,7 @@ namespace CP_Dev_Tools.Src
             MapCanvas.Children.Remove(changer.ToChange);
 
         }
+
 
         /// <summary>
         /// Generates an image instance used when appending to the canvas children.
