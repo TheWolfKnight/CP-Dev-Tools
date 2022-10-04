@@ -28,7 +28,7 @@
                 <MenuItem Header="Exit"/>
             </MenuItem>
             <MenuItem Header="_Edit">
-                <MenuItem Header="New map" MouseDown="EditChildElement_MouseDown">
+                <MenuItem Header="New map" Click="EditChildElement_Click">
                     <MenuItem Header="Small 25x25" Name="small"/>
                     <MenuItem Header="Medium 50x50" Name="medium"/>
                     <MenuItem Header="Large 100x100" Name="large"/>
@@ -90,7 +90,7 @@
                     </GroupBox>
                     <GroupBox Grid.Column="1" Header="Map Editor">
                         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
-                            <Canvas MouseDown="MapCanvas_MouseDown" VerticalAlignment="Top" HorizontalAlignment="Left" Name="MapCanvas">
+                            <Canvas MouseRightButtonDown="MapCanvas_RightButtonDown" MouseLeftButtonDown="MapCanvas_LeftButtonDown" VerticalAlignment="Top" HorizontalAlignment="Left" Name="MapCanvas">
                             </Canvas>
                         </ScrollViewer>
                     </GroupBox>

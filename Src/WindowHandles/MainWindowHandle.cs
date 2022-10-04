@@ -71,7 +71,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// 
         /// </summary>
         /// <param name="e"></param>
-        public void MapCanvasMouseDownEvent( MouseButtonEventArgs e )
+        public void MapCanvasLeftButtonDownEvent( MouseButtonEventArgs e )
         {
             if (e.LeftButton != MouseButtonState.Pressed)
             {
@@ -81,7 +81,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
 
             try
             {
-                Image target = (Image)e.Source;
+                FrameworkElement target = (FrameworkElement)e.OriginalSource;
 
 
 
@@ -177,7 +177,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// 
         /// </summary>
         /// <param name="element"></param>
-        public void EditChildElementMouseDownEvent( FrameworkElement element )
+        public void EditChildElementClickEvent( FrameworkElement element )
         {
 
             bool init = true;

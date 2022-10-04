@@ -44,9 +44,15 @@ namespace CP_Dev_Tools
         }
 
 
-        private void MapCanvas_MouseDown( object sender, MouseButtonEventArgs e)
+        private void MapCanvas_LeftButtonDown( object sender, MouseButtonEventArgs e)
         {
-            Handle.MapCanvasMouseDownEvent(e);
+            Handle.MapCanvasLeftButtonDownEvent(e);
+        }
+
+
+        private void MapCanvas_RightButtonDown( object sender, MouseButtonEventArgs e )
+        {
+
         }
 
 
@@ -66,9 +72,9 @@ namespace CP_Dev_Tools
             Handle.ClearMapClickEvent();
         }
 
-        private void EditChildElement_MouseDown( object sender, MouseButtonEventArgs e )
+        private void EditChildElement_Click( object sender, RoutedEventArgs e )
         {
-            Handle.EditChildElementMouseDownEvent( e.OriginalSource as FrameworkElement );
+            Handle.EditChildElementClickEvent( e.OriginalSource as FrameworkElement );
         }
 
     }
