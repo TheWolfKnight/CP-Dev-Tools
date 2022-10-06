@@ -24,6 +24,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         private string PathToCurrentCase;
         private CanvasManager Manager;
         private Thread SavingThread;
+        private PlacementItem item = PlacementItem();
 
         private bool[] SaveableElements = new bool[3] { false, false, false };
 
@@ -198,14 +199,26 @@ namespace CP_Dev_Tools.Src.WindowHandles
                     dims = new int[] { 255, 255 };
                     break;
                 case "custom_size":
-                    throw new Exception("TBD");
-                    break;
+                    if (Manager.MapCanvas.Children.Count > 0)
+                        ChangeSizeClickEvent();
+                    else
+                        NewMapClickEvent();
+                    return;
+                case "clear_map":
+                    Manager.MapCanvas.Children.Clear();
+                    return;
                 default:
                     throw new Exception("Unrechable code");
             }
 
             SizeWindowCall(dims, init);
 
+        }
+
+
+        public void TreeViewMouseDownEvent( FrameworkElement element )
+        {
+            throw new Exception("TBD");
         }
 
 
@@ -254,4 +267,31 @@ namespace CP_Dev_Tools.Src.WindowHandles
         }
 
     }
+
+
+    internal struct PlacementItem
+    {
+        public TileSurface Surface { get; private set; }
+        public TileDecal Decal { get; private set; }
+
+        public PlacementItem(TileSurface surface=TileSurface.None, TileDecal decal=null)
+        {
+            Surface = surface;
+            Decal = decal;
+        }
+
+        public void SetSurface( TileSurface surface )
+        {
+            Surface = surface;
+            Decal = null;
+        }
+
+        public void SetDecal( TileDecal decal )
+        {
+            Surface = TileSurface.None;
+            Decal = decal;
+        }
+
+    }
+
 }

@@ -35,7 +35,8 @@
                     <MenuItem Header="Ultra large 255x255" Name="ultra_large"/>
                     <Separator/>
                     <MenuItem Header="Custom size" Name="custom_size"/>
-                    <MenuItem Header="Clear map" Click="ClearMap_Click"/>
+                    <Separator/>
+                    <MenuItem Header="Clear map" Name="clear_map"/>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_View">
@@ -53,7 +54,7 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Tool Box">
                         <Grid>
-                            <TreeView>
+                            <TreeView MouseDown="TreeView_MouseDown">
                                 <TreeViewItem Header="Tiles">
                                     <TreeViewItem Header="Water Tile"/>
                                 </TreeViewItem>

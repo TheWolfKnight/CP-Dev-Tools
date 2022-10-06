@@ -52,7 +52,7 @@ namespace CP_Dev_Tools
 
         private void MapCanvas_RightButtonDown( object sender, MouseButtonEventArgs e )
         {
-
+            throw new Exception("TBD");
         }
 
 
@@ -75,6 +75,11 @@ namespace CP_Dev_Tools
         private void EditChildElement_Click( object sender, RoutedEventArgs e )
         {
             Handle.EditChildElementClickEvent( e.OriginalSource as FrameworkElement );
+        }
+
+        private void TreeView_MouseDown( object sender, RoutedEventArgs e )
+        {
+            Handle.TreeViewMouseDownEvent(e.OriginalSource as FrameworkElement);
         }
 
     }

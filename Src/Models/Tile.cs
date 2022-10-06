@@ -75,6 +75,7 @@ namespace CP_Dev_Tools.Src.Models
 
     public enum TileSurface
     {
+        None,
         Void,
         Ocean,
         Grass,
