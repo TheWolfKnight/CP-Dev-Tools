@@ -24,7 +24,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         private string PathToCurrentCase;
         private CanvasManager Manager;
         private Thread SavingThread;
-        private PlacementItem item = PlacementItem();
+        private PlacementItem item = new PlacementItem();
 
         private bool[] SaveableElements = new bool[3] { false, false, false };
 
