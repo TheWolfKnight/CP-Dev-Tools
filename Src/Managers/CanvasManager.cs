@@ -13,7 +13,7 @@ using CP_Dev_Tools.Src;
 using CP_Dev_Tools.Src.Models;
 
 
-namespace CP_Dev_Tools.Src
+namespace CP_Dev_Tools.Src.Managers
 {
     class CanvasManager
     {
@@ -158,7 +158,7 @@ namespace CP_Dev_Tools.Src
 
     }
 
-    internal struct TileChange
+    public struct TileChange
     {
         public Image ToChange;
         public Tile replacer;

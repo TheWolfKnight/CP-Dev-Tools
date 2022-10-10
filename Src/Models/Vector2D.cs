@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CP_Dev_Tools.Src
+namespace CP_Dev_Tools.Src.Models
 {
     public class Vector2D
     {

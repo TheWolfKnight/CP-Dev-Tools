@@ -8,11 +8,11 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Controls;
 
-using CP_Dev_Tools.Src;
+using CP_Dev_Tools.Src.Managers;
 using CP_Dev_Tools.Frontend;
 using CP_Dev_Tools.Src.Models;
 
-using static CP_Dev_Tools.Src.FileHandling;
+using static CP_Dev_Tools.Src.Services.FileHandling;
 
 namespace CP_Dev_Tools.Src.WindowHandles
 {
@@ -24,7 +24,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         private string PathToCurrentCase;
         private CanvasManager Manager;
         private Thread SavingThread;
-        private PlacementItem item = new PlacementItem();
+        private PlacementItem Item = new PlacementItem();
 
         private bool[] SaveableElements = new bool[3] { false, false, false };
 
@@ -74,6 +74,22 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// <param name="element"></param>
         public void MapCanvasLeftButtonDownEvent( FrameworkElement element )
         {
+            string elementName = element.Name;
+
+
+            bool[] h = new bool[2] { Item.Decal == Decals.None, Item.Surface == TileSurface.None };
+
+
+            if (h[0] && !h[1])
+            {
+                // Triggers if the decal is active, and the tile surface is not
+            }
+            else if (!h[0] && h[1])
+            {
+                // Triggers if the tile surface is active, and the decal is not
+            }
+            else throw new Exception("Unrechable code");
+
             
         }
 
@@ -166,7 +182,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="element"></param>
+        /// <param name="element"> The framework element effcted by the mouse click </param>
         public void EditChildElementClickEvent( FrameworkElement element )
         {
 
@@ -205,6 +221,10 @@ namespace CP_Dev_Tools.Src.WindowHandles
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"> The framework element effected by the mouse click </param>
         public void TreeViewMouseDownEvent( FrameworkElement element )
         {
             throw new Exception("TBD");
@@ -212,10 +232,11 @@ namespace CP_Dev_Tools.Src.WindowHandles
 
 
         /// <summary>
-        /// 
+        /// Handles the SizeWindows result in a way that makes it hopefuly safe for the end user,
+        /// but no promisis.
         /// </summary>
-        /// <param name="dims"></param>
-        /// <param name="init"></param>
+        /// <param name="dims"> Dimensions of the new canvas </param>
+        /// <param name="init"> Tells if this is a resize or the initialization of the canvas </param>
         public void SizeWindowCall(int[] dims, bool init = false)
         {
             if (init)
@@ -255,15 +276,37 @@ namespace CP_Dev_Tools.Src.WindowHandles
             return t;
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tile"></param>
+        private void ChangeTile( FrameworkElement tile )
+        {
+
+        }
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="decal"></param>
+        private void ChangeDecal( FrameworkElement decal )
+        {
+
+        }
+
+
+
     }
 
 
     internal struct PlacementItem
     {
         public TileSurface Surface { get; private set; }
-        public TileDecal Decal { get; private set; }
+        public Decals Decal { get; private set; }
 
-        public PlacementItem(TileSurface surface=TileSurface.None, TileDecal decal=null)
+        public PlacementItem(TileSurface surface=TileSurface.None, Decals decal=Decals.None)
         {
             Surface = surface;
             Decal = decal;
@@ -272,10 +315,10 @@ namespace CP_Dev_Tools.Src.WindowHandles
         public void SetSurface( TileSurface surface )
         {
             Surface = surface;
-            Decal = null;
+            Decal = Decals.None;
         }
 
-        public void SetDecal( TileDecal decal )
+        public void SetDecal( Decals decal )
         {
             Surface = TileSurface.None;
             Decal = decal;

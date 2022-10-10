@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 
 
-namespace CP_Dev_Tools.Src
+namespace CP_Dev_Tools.Src.Services
 {
     public class FileHandling {
 

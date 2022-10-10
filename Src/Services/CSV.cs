@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace CP_Dev_Tools
+namespace CP_Dev_Tools.Src.Services
 {
     class CSV : List<string[]>
     {

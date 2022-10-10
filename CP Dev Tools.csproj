@@ -73,15 +73,15 @@
     <Compile Include="Frontend\SizeWindow.xaml.cs">
       <DependentUpon>SizeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Src\CanvasManager.cs" />
-    <Compile Include="Src\CSV.cs" />
-    <Compile Include="Src\DecalManager.cs" />
-    <Compile Include="Src\FileHandling.cs" />
+    <Compile Include="Src\Managers\CanvasManager.cs" />
+    <Compile Include="Src\Services\CSV.cs" />
+    <Compile Include="Src\Managers\DecalManager.cs" />
+    <Compile Include="Src\Services\FileService.cs" />
     <Compile Include="Src\Models\Decals.cs" />
     <Compile Include="Src\Models\SpriteSet.cs" />
     <Compile Include="Src\Models\Tile.cs" />
-    <Compile Include="Src\TileManager.cs" />
-    <Compile Include="Src\Vector2D.cs" />
+    <Compile Include="Src\Managers\TileManager.cs" />
+    <Compile Include="Src\Models\Vector2D.cs" />
     <Compile Include="Src\WindowHandles\MainWindowHandle.cs" />
     <Compile Include="Src\WindowHandles\SaveWindowHandle.cs" />
     <Compile Include="Src\WindowHandles\SizeWindowHandle.cs" />

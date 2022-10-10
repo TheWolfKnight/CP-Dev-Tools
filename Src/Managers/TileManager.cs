@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using CP_Dev_Tools.Src.Models;
 
-namespace CP_Dev_Tools.Src
+namespace CP_Dev_Tools.Src.Managers
 {
     class TileManager
     {
