@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Src\CanvasManager.cs" />
     <Compile Include="Src\CSV.cs" />
+    <Compile Include="Src\DecalManager.cs" />
     <Compile Include="Src\FileHandling.cs" />
     <Compile Include="Src\Models\Decals.cs" />
     <Compile Include="Src\Models\SpriteSet.cs" />

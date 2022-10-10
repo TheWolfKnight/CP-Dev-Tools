@@ -11,7 +11,7 @@ namespace CP_Dev_Tools.Src.Models
         public string TileID { get; private set; }
         public TileSurface Surface { get; set; }
         public TileDecal TileDecal { get; set; }
-        public Vector2D Coordinates { get; private set; }
+        public Vector2D Coordinates { get; set; }
 
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace CP_Dev_Tools.Src.Models
         /// <param name="surface"></param>
         public Tile(int x, int y, TileSurface surface )
         {
-            TileID = $"{x}:{y}";
+            TileID = $"T{x}x{y}";
             Coordinates = new Vector2D(x, y);
             Surface = surface;
         }

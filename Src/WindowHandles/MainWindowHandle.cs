@@ -71,31 +71,20 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="e"></param>
-        public void MapCanvasLeftButtonDownEvent( MouseButtonEventArgs e )
+        /// <param name="element"></param>
+        public void MapCanvasLeftButtonDownEvent( FrameworkElement element )
         {
-            if (e.LeftButton != MouseButtonState.Pressed)
-            {
-                e.Handled = true;
-                return;
-            }
-
-            try
-            {
-                FrameworkElement target = (FrameworkElement)e.OriginalSource;
+            
+        }
 
 
-
-            }
-            catch (InvalidCastException _)
-            {
-                // Just making sure nothing happens here
-            }
-            finally
-            {
-                // Makes sure this does not continue doing something after im done with the edit
-                e.Handled = true;
-            }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="element"></param>
+        public void MapCanvasRightButtonDownEvent( FrameworkElement element )
+        {
+            throw new Exception("TBD");
         }
 
 

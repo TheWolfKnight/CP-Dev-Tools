@@ -46,13 +46,15 @@ namespace CP_Dev_Tools
 
         private void MapCanvas_LeftButtonDown( object sender, MouseButtonEventArgs e)
         {
-            Handle.MapCanvasLeftButtonDownEvent(e);
+            Handle.MapCanvasLeftButtonDownEvent(e.OriginalSource as FrameworkElement);
+            e.Handled = true;
         }
 
 
         private void MapCanvas_RightButtonDown( object sender, MouseButtonEventArgs e )
         {
-            throw new Exception("TBD");
+            Handle.MapCanvasRightButtonDownEvent(e.OriginalSource as FrameworkElement);
+            e.Handled = true;
         }
 
 

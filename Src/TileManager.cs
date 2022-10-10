@@ -10,7 +10,7 @@ namespace CP_Dev_Tools.Src
 {
     class TileManager
     {
-        public List<List<Tile>> TileSet { get; private set; }
+        public List<Tile> TileSet { get; private set; }
         public TileSurface DefualtSurface { get; private set; }
         private int[] Dims { get; set; }
 
@@ -27,15 +27,17 @@ namespace CP_Dev_Tools.Src
         /// <param name="tileSurface"> Surface used for the tiles on creation </param>
         private void InitArray()
         {
-
-            TileSet = Enumerable.Range(0, Dims[1])
-                                .Select(i => Enumerable.Range(0, Dims[0])
-                                                       .Select(j => new Tile(j, i, DefualtSurface))
-                                                       .ToList<Tile>())
-                                .ToList<List<Tile>>();
-
-            return;
+            TileSet = Enumerable.Range(0, Dims[0] * Dims[1]).Select(i => CreateTile(i)).ToList();
         }
+
+
+        private Tile CreateTile( int position )
+        {
+            int y = (int)Math.Floor( (double)position / Dims[1] );
+            int x = position - (y * Dims[1]);
+            return new Tile(x, y, DefualtSurface);
+        }
+
 
         /// <summary>
         /// Resizes the array for the tile set, this action can, and will, delete data outside the 

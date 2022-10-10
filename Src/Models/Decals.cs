@@ -10,44 +10,24 @@ namespace CP_Dev_Tools.Src.Models
     public class TileDecal
     {
         public Tile Owner { get; set; }
-        public float MovementMod { get; private set; }
         public Decals Decal { get; private set; }
+        public string DecalID { get; private set; }
 
-        public TileDecal( float movementMod, Decals decal )
+        public TileDecal( int[] dims, Decals decal )
         {
-            MovementMod = movementMod;
             Decal = decal;
+            DecalID = $"D{dims[0]}x{dims[1]}";
         }
 
         public void SetDecal( Decals decal )
         {
             Decal = decal;
-            
-            switch ( decal )
-            {
-                case Decals.Town:
-                    break;
-                case Decals.Road:
-                    break;
-                case Decals.River:
-                    break;
-                case Decals.Mountin:
-                    break;
-                case Decals.Forest:
-                    break;
-                case Decals.Hils:
-                    break;
-                default:
-                    throw new Exception("Unrechable code");
-            }
-
-            return;
-
         }
     }
 
     public enum Decals
     {
+        None,
         Town,
         Road,
         River,

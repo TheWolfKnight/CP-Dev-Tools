@@ -24,6 +24,7 @@ namespace CP_Dev_Tools.Src
         private readonly int TileHalfWidth = 11;
 
         private TileManager TileManagerHolder;
+        private DecalManager DecalManagerHolder;
 
         public CanvasManager( Canvas mapCanvas )
         {
@@ -44,8 +45,9 @@ namespace CP_Dev_Tools.Src
             MapCanvas.Height = mapDims[1] * 19 + 40;
 
             TileManagerHolder = new TileManager(mapDims, defualtSurface);
+            DecalManagerHolder = new DecalManager(mapDims);
 
-            TileManagerHolder.TileSet.ForEach(yDim => yDim.ForEach(tile => Draw(tile)));
+            TileManagerHolder.TileSet.ForEach(tile => Draw(tile) );
 
         }
 
@@ -58,6 +60,7 @@ namespace CP_Dev_Tools.Src
         private void Draw( Tile toDraw )
         {
             Image img = GenerateImage(toDraw.Surface);
+            img.Name = toDraw.TileID;
 
             double x = toDraw.Coordinates.X * TileDims[0];
 
@@ -105,7 +108,7 @@ namespace CP_Dev_Tools.Src
         {
             Image img = new Image();
             
-            BitmapImage bitmap = new BitmapImage(new Uri($"{TilePrefix}{surface.ToString()}Tile.png"));
+            BitmapImage bitmap = new BitmapImage(new Uri($"{TilePrefix}{surface}Tile.png"));
             img.Source = bitmap;
             img.Width = bitmap.Width;
             img.Height = bitmap.Height;
