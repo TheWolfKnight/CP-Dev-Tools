@@ -8,15 +8,15 @@ namespace CP_Dev_Tools.Src.Models
 {
     public class Vector2D
     {
-        public float X { get; set; }
-        public float Y { get; set; }
+        public double X { get; set; }
+        public double Y { get; set; }
 
         /// <summary>
         /// Create a new Vector2D class with given parameters
         /// </summary>
         /// <param name="x"> X value for the vector </param>
         /// <param name="y"> Y value for the vector </param>
-        public Vector2D( float x, float y )
+        public Vector2D( double x, double y )
         {
             X = x;
             Y = y;
@@ -67,6 +67,13 @@ namespace CP_Dev_Tools.Src.Models
         }
 
 
+        public void Div( double n )
+        {
+            X /= n;
+            Y /= n;
+        }
+
+
         /// <summary>
         /// Gets the distance between two vectors using the pythagorian therom
         /// </summary>
@@ -74,11 +81,35 @@ namespace CP_Dev_Tools.Src.Models
         /// <returns> The distance between the two Vector2D's </returns>
         public double Dist( Vector2D i )
         {
-            float x2 = X * X - i.X * i.X;
-            float y2 = Y * Y - i.Y * i.Y;
+            double x2 = X * X - i.X * i.X;
+            double y2 = Y * Y - i.Y * i.Y;
 
             return Math.Sqrt(x2 + y2);
 
+        }
+
+        /// <summary>
+        /// Gets the magnitude of the Vector2D;
+        /// </summary>
+        /// <returns> The magnitude of the Vector2D in the form of a double </returns>
+        public double Mag()
+        {
+
+            double x = X * X;
+            double y = Y * Y;
+
+            return Math.Sqrt(x + y);
+
+        }
+
+
+        /// <summary>
+        /// Normalizes the Vector2D
+        /// </summary>
+        public void Norm()
+        {
+            double h = this.Mag();
+            Div(h);
         }
 
     }
