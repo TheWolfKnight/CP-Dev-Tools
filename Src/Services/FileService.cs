@@ -62,7 +62,7 @@ namespace CP_Dev_Tools.Src.Services
         public static void AppendFile( string filePath, string content)
         {
             string path = $@"{assemblyLoaction}\{filePath}";
-            using ( StreamWriter wstream = new StreamWriter(new FileStream(path, FileMode.Append, FileAccess.Write)) )
+            using (StreamWriter wstream = new StreamWriter(new FileStream(path, FileMode.Append, FileAccess.Write)))
             {
                 wstream.WriteLine(content);
                 wstream.Flush();

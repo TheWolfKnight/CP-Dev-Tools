@@ -87,7 +87,7 @@ namespace CP_Dev_Tools.Src.Managers
         /// </param>
         public void Draw( TileChange changer )
         {
-            Tile toDraw = changer.replacer;
+            Tile toDraw = changer.Replacer;
             Image img = GenerateImage(toDraw.Surface);
 
             img.Margin = changer.ToChange.Margin;
@@ -149,7 +149,7 @@ namespace CP_Dev_Tools.Src.Managers
             }
 
             TileChange tileChange = new TileChange();
-            tileChange.replacer = change;
+            tileChange.Replacer = change;
             tileChange.ToChange = result;
 
             Draw(tileChange);
@@ -161,7 +161,7 @@ namespace CP_Dev_Tools.Src.Managers
     public struct TileChange
     {
         public Image ToChange;
-        public Tile replacer;
+        public Tile Replacer;
     }
 
 }
