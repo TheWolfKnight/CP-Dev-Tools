@@ -73,6 +73,8 @@
     <Compile Include="Frontend\SizeWindow.xaml.cs">
       <DependentUpon>SizeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Src\Exceptions\TBD.cs" />
+    <Compile Include="Src\Exceptions\UnrechableCodeException.cs" />
     <Compile Include="Src\Managers\CanvasManager.cs" />
     <Compile Include="Src\Services\CSV.cs" />
     <Compile Include="Src\Managers\DecalManager.cs" />

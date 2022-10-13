@@ -54,34 +54,39 @@
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Tool Box">
                         <Grid>
-                            <TreeView MouseDown="TreeView_MouseDown">
-                                <TreeViewItem Header="Tiles">
-                                    <TreeViewItem Header="Water Tile"/>
+                            <TreeView TreeViewItem.Selected="TreeView_MouseDown">
+                                <TreeViewItem Tag="tile" Header="Tiles">
+                                    <TreeViewItem Tag="1" Header="Void Tile"/>
+                                    <TreeViewItem Tag="2" Header="Ocean Tile"/>
+                                    <TreeViewItem Tag="3" Header="Grass Tile"/>
+                                    <TreeViewItem Tag="4" Header="Sand Tile"/>
+                                    <TreeViewItem Tag="5" Header="Snow Tile"/>
+                                    <TreeViewItem Tag="6" Header="Stone Tile"/>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Buildings">
+                                <TreeViewItem Tag="decal" Header="Buildings">
                                     <TreeViewItem Header="Town"/>
                                     <TreeViewItem Header="Item Vender"/>
                                     <TreeViewItem Header=""/>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Envierment">
+                                <TreeViewItem Tag="decal" Header="Envierment">
                                     <TreeViewItem Header="River"/>
                                     <TreeViewItem Header="Forest"/>
                                     <TreeViewItem Header="Lava"/>
                                     <TreeViewItem Header="Crags"/>
                                     <TreeViewItem Header="Mountins"/>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Event Triggers">
+                                <TreeViewItem Tag="decal" Header="Event Triggers">
                                     <TreeViewItem Header="Walk Trigger"/>
                                     <TreeViewItem Header="Talk Trigger"/>
                                     <TreeViewItem Header="Combat Trigger"/>
                                     <TreeViewItem Header="Collect Trigger"/>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Units">
+                                <TreeViewItem Tag="decal" Header="Units">
                                     <TreeViewItem Header="Random Units"/>
                                     <TreeViewItem Header="Empty Stack"/>
                                     <TreeViewItem Header="Heroic Stack"/>
                                 </TreeViewItem>
-                                <TreeViewItem Header="Roads">
+                                <TreeViewItem Tag="decal" Header="Roads">
                                     <TreeViewItem Header="Dirt Road"/>
                                     <TreeViewItem Header="Stone Road"/>
                                     <TreeViewItem Header="Paved Road"/>

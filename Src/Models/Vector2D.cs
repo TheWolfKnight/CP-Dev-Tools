@@ -8,15 +8,15 @@ namespace CP_Dev_Tools.Src.Models
 {
     public class Vector2D
     {
-        public double X { get; set; }
-        public double Y { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
 
         /// <summary>
         /// Create a new Vector2D class with given parameters
         /// </summary>
         /// <param name="x"> X value for the vector </param>
         /// <param name="y"> Y value for the vector </param>
-        public Vector2D( double x, double y )
+        public Vector2D( int x, int y )
         {
             X = x;
             Y = y;
@@ -62,15 +62,8 @@ namespace CP_Dev_Tools.Src.Models
         /// <param name="i"> The diviser for this vector </param>
         public void Div( Vector2D i )
         {
-            X /= i.X;
-            Y /= i.Y;
-        }
-
-
-        public void Div( double n )
-        {
-            X /= n;
-            Y /= n;
+            X = (int)Math.Floor( (double)X / i. X);
+            Y = (int)Math.Floor( (double)Y / i.Y );
         }
 
 
@@ -94,22 +87,10 @@ namespace CP_Dev_Tools.Src.Models
         /// <returns> The magnitude of the Vector2D in the form of a double </returns>
         public double Mag()
         {
-
             double x = X * X;
             double y = Y * Y;
 
             return Math.Sqrt(x + y);
-
-        }
-
-
-        /// <summary>
-        /// Normalizes the Vector2D
-        /// </summary>
-        public void Norm()
-        {
-            double h = this.Mag();
-            Div(h);
         }
 
     }
