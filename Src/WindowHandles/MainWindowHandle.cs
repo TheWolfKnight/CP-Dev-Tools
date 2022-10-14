@@ -78,9 +78,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         {
             string elementNameProperty = element.Name;
 
-
             bool[] h = new bool[2] { Item.Decal == Decals.None, Item.Surface == TileSurface.None };
-
 
             if (h[0] && !h[1])
             {
@@ -103,7 +101,8 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// <param name="element"> The element under the mouse when the right button is clicked </param>
         public void MapCanvasRightButtonDownEvent( FrameworkElement element )
         {
-            throw new TBD();
+            MapItemDetailsWindow detailsWindow = new MapItemDetailsWindow( element );
+            detailsWindow.ShowDialog();
         }
 
 

@@ -67,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Frontend\MapItemDetailsWindow.xaml.cs">
+      <DependentUpon>MapItemDetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\SaveSelectionWindow.xaml.cs">
       <DependentUpon>SaveSelectionWindow.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,7 @@
     <Compile Include="Src\Managers\TileManager.cs" />
     <Compile Include="Src\Models\Vector2D.cs" />
     <Compile Include="Src\WindowHandles\MainWindowHandle.cs" />
+    <Compile Include="Src\WindowHandles\MapItemDetailsWindowHandle.cs" />
     <Compile Include="Src\WindowHandles\SaveWindowHandle.cs" />
     <Compile Include="Src\WindowHandles\SizeWindowHandle.cs" />
     <Page Include="Frontend\MainWindow.xaml">
@@ -99,6 +103,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Frontend\MapItemDetailsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\SaveSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
