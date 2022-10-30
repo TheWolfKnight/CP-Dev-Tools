@@ -42,5 +42,11 @@ namespace CP_Dev_Tools.Frontend
             }
 
         }
+
+        private void EventTree_Click( object sender, MouseButtonEventArgs e )
+        {
+
+        } 
+
     }
 }

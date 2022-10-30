@@ -24,7 +24,6 @@ namespace CP_Dev_Tools.Src.Managers
         private readonly int TileHalfWidth = 11;
 
         private TileManager TileManagerHolder;
-        private DecalManager DecalManagerHolder;
 
         public CanvasManager( Canvas mapCanvas )
         {
@@ -45,7 +44,6 @@ namespace CP_Dev_Tools.Src.Managers
             MapCanvas.Height = mapDims[1] * 19 + 40;
 
             TileManagerHolder = new TileManager(mapDims, defualtSurface);
-            DecalManagerHolder = new DecalManager(mapDims);
 
             TileManagerHolder.TileSet.ForEach(tile => Draw(tile) );
 

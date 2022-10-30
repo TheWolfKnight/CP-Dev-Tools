@@ -38,7 +38,7 @@ namespace CP_Dev_Tools.Frontend
                 y = int.Parse(GetRichTextBoxContent(this.yResize));
                 Caller.SizeWindowCall(new int[2] { x, y }, init: New);
                 this.Close();
-            } catch ( FormatException __ )
+            } catch ( FormatException )
             {
                 this.errLabel.Visibility = Visibility.Visible;
             }

@@ -80,13 +80,12 @@
     <Compile Include="Src\Exceptions\UnrechableCodeException.cs" />
     <Compile Include="Src\Managers\CanvasManager.cs" />
     <Compile Include="Src\Services\CSV.cs" />
-    <Compile Include="Src\Managers\DecalManager.cs" />
     <Compile Include="Src\Services\FileService.cs" />
-    <Compile Include="Src\Models\Decals.cs" />
     <Compile Include="Src\Models\SpriteSet.cs" />
     <Compile Include="Src\Models\Tile.cs" />
     <Compile Include="Src\Managers\TileManager.cs" />
     <Compile Include="Src\Models\Vector2D.cs" />
+    <Compile Include="Src\Services\TempFileService.cs" />
     <Compile Include="Src\WindowHandles\MainWindowHandle.cs" />
     <Compile Include="Src\WindowHandles\MapItemDetailsWindowHandle.cs" />
     <Compile Include="Src\WindowHandles\SaveWindowHandle.cs" />

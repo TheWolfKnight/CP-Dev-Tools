@@ -20,7 +20,7 @@ namespace CP_Dev_Tools.Src.Models
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="surface"></param>
-        public Tile(int x, int y, TileSurface surface )
+        public Tile(int x, int y, TileSurface surface)
         {
             TileID = $"T{x}x{y}";
             Coordinates = new Vector2D(x, y);
@@ -34,7 +34,6 @@ namespace CP_Dev_Tools.Src.Models
         /// <param name="decal"></param>
         public void SetDecal( TileDecal decal )
         {
-            decal.Owner = this;
             TileDecal = decal;
         }
 
@@ -73,15 +72,33 @@ namespace CP_Dev_Tools.Src.Models
 
     }
 
+
+    /// <summary>
+    /// The types of surfaces that a tile can have
+    /// </summary>
     public enum TileSurface
     {
-        None,
-        Void,
-        Ocean,
-        Grass,
-        Sand,
-        Snow,
-        Stone,
+        None    = 1,     // 0000001
+        Void    = 2,     // 0000010
+        Ocean   = 4,     // 0000100
+        Grass   = 8,     // 0001000
+        Sand    = 16,    // 0010000
+        Snow    = 32,    // 0100000
+        Stone   = 64,    // 1000000
     }
 
+
+    /// <summary>
+    /// The fetures a tile can posses
+    /// </summary>
+    public enum TileDecal
+    {
+        None    = 1,     // 000000
+        Town    = 2,     // 000001
+        Road    = 4,     // 000010
+        River   = 8,     // 000100
+        Mountin = 16,    // 001000
+        Hils    = 32,    // 010000
+        Forest  = 64,    // 100000
+    }
 }

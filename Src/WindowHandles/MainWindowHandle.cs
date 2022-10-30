@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using CP_Dev_Tools.Frontend;
 using CP_Dev_Tools.Src.Models;
 using CP_Dev_Tools.Src.Managers;
+using CP_Dev_Tools.Src.Services;
 using CP_Dev_Tools.Src.Exceptions;
 
 using static CP_Dev_Tools.Src.Services.FileHandling;
@@ -37,6 +38,17 @@ namespace CP_Dev_Tools.Src.WindowHandles
         public MainWindowHandle( MainWindow owner )
         {
             Owner = owner;
+            TempFileService tmpFile = new TempFileService();
+
+            Tile tmp = new Tile(25, 16, TileSurface.Stone);
+            tmp.SetDecal(TileDecal.River);
+            tmpFile.WriteData(tmp);
+
+            Tile tmp2 = new Tile(32, 64, TileSurface.Void);
+            tmp2.SetDecal(TileDecal.None);
+            tmpFile.WriteData(tmp2);
+
+            tmpFile.DumpFile();
         }
 
 
@@ -78,7 +90,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         {
             string elementNameProperty = element.Name;
 
-            bool[] h = new bool[2] { Item.Decal == Decals.None, Item.Surface == TileSurface.None };
+            bool[] h = new bool[2] { Item.Decal == TileDecal.None, Item.Surface == TileSurface.None };
 
             if (h[0] && !h[1])
             {
@@ -364,21 +376,21 @@ namespace CP_Dev_Tools.Src.WindowHandles
     internal struct PlacementItem
     {
         public TileSurface Surface { get; private set; }
-        public Decals Decal { get; private set; }
+        public TileDecal Decal { get; private set; }
 
-        public PlacementItem(TileSurface surface=TileSurface.None, Decals decal=Decals.None)
+        public PlacementItem(TileSurface surface = TileSurface.None, TileDecal decal = TileDecal.None)
         {
             Surface = surface;
             Decal = decal;
         }
 
-        public void SetSurface( TileSurface surface )
+        public void SetSurface(TileSurface surface)
         {
             Surface = surface;
-            Decal = Decals.None;
+            Decal = TileDecal.None;
         }
 
-        public void SetDecal( Decals decal )
+        public void SetDecal(TileDecal decal)
         {
             Surface = TileSurface.None;
             Decal = decal;
