@@ -66,14 +66,65 @@ namespace CP_Dev_Tools.Src.Services
         }
 
 
+        public void WriteData( string chunks )
+        {
+            using ( StreamWriter writer = File.AppendText(TMPFilePath) )
+            {
+                writer.Write(chunks);
+                writer.Flush();
+            }
+        }
+
+
         /// <summary>
         /// Writes the entire file to the stdout
         /// </summary>
         public void DumpFile()
         {
-            string data = File.ReadAllText(TMPFilePath);
-            Console.WriteLine(data);
+            int i = 1;
+            foreach (string line in File.ReadLines(TMPFilePath))
+            {
+                Console.Write($"{i}: ");
+                Console.WriteLine(line);
+                i++;
+            }
+        }
 
+
+        /// <summary>
+        /// Gets an IEnumerable of all the Tiles in the TEMP file.
+        /// </summary>
+        /// <returns> An IEnumrable of all tile </returns>
+        public IEnumerable<Tile> GetTiles()
+        {
+            foreach ( string chunk in File.ReadLines(TMPFilePath) ) {
+                Tile t = ConvertChunkToTile(chunk);
+                yield return t;
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the entire file as a string
+        /// </summary>
+        /// <returns> A string representation of the tmp file </returns>
+        public string GetFullFile()
+        {
+            string data = File.ReadAllText(TMPFilePath);
+            return data;
+        }
+
+
+        /// <summary>
+        /// Gets a tile by a specific offset, in the TMP file.
+        /// </summary>
+        /// <param name="offset"> The offset from which the TEMPFileService instance will read at </param>
+        /// <returns> The tile representation of the chunk data </returns>
+        public Tile GetTileAtOffset( int offset )
+        {
+            string chunk = File.ReadLines(TMPFilePath).Skip(offset).FirstOrDefault();
+            Tile tile = ConvertChunkToTile(chunk);
+            return tile;
         }
 
 
@@ -86,10 +137,33 @@ namespace CP_Dev_Tools.Src.Services
         {
             string r = "";
             r += $"{tile.Coordinates.X:x10} {tile.Coordinates.Y:x10} ";
-            r += $"{(int)tile.Surface:x10} {(int)tile.TileDecal:x10}";
+            r += $"{(int)tile.Surface:x10} {(int)tile.Decal:x10}";
             return r;
         }
 
+
+        /// <summary>
+        /// Converts a pice of chunk data into a Tile instance
+        /// </summary>
+        /// <param name="chunk"> The data from the chunk </param>
+        /// <returns> The Tile reprecentation of the Tile data </returns>
+        private Tile ConvertChunkToTile(string chunk)
+        {
+            chunk = chunk.Trim();
+            string[] split = chunk.Split(' ');
+            Tile tmp = new Tile();
+            try
+            {
+                int x = int.Parse(split[0], System.Globalization.NumberStyles.HexNumber);
+                int y = int.Parse(split[1], System.Globalization.NumberStyles.HexNumber);
+                tmp.SetCoordinates(x, y);
+            } catch ( FormatException ) { }
+            TileSurface surface = (TileSurface)int.Parse(split[2], System.Globalization.NumberStyles.HexNumber);
+            TileDecal decal = (TileDecal)int.Parse(split[3], System.Globalization.NumberStyles.HexNumber);
+            tmp.SetSurface(surface);
+            tmp.SetDecal(decal);
+            return tmp;
+        }
 
 
         /// <summary>
@@ -101,7 +175,6 @@ namespace CP_Dev_Tools.Src.Services
                 File.Delete(TMPFilePath);
             return;
         }
-
 
     }
 }

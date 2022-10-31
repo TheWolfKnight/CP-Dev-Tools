@@ -7,9 +7,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Diagnostics;
 
 
-using CP_Dev_Tools.Src;
 using CP_Dev_Tools.Src.Models;
 
 
@@ -25,6 +25,11 @@ namespace CP_Dev_Tools.Src.Managers
 
         private TileManager TileManagerHolder;
 
+
+        /// <summary>
+        /// Creates an instance of the CanvasManager Class.
+        /// </summary>
+        /// <param name="mapCanvas"> The Canvas elment that is to be managed </param>
         public CanvasManager( Canvas mapCanvas )
         {
             MapCanvas = mapCanvas;
@@ -45,7 +50,7 @@ namespace CP_Dev_Tools.Src.Managers
 
             TileManagerHolder = new TileManager(mapDims, defualtSurface);
 
-            TileManagerHolder.TileSet.ForEach(tile => Draw(tile) );
+            TileManagerHolder.TileSet().ToList().ForEach(tile => Draw(tile));
 
         }
 
@@ -144,6 +149,7 @@ namespace CP_Dev_Tools.Src.Managers
             if (result is null)
             {
                 MessageBox.Show("Could not find a tile with the given id", "Error", MessageBoxButton.OK);
+                return;
             }
 
             TileChange tileChange = new TileChange();

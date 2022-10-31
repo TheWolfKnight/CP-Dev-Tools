@@ -10,38 +10,42 @@ namespace CP_Dev_Tools.Src.Models
     {
         public string TileID { get; private set; }
         public TileSurface Surface { get; set; }
-        public TileDecal TileDecal { get; set; }
+        public TileDecal Decal { get; set; }
         public Vector2D Coordinates { get; set; }
 
 
+        public Tile() { }
+
+
         /// <summary>
-        /// 
+        /// Creates a new tile instance with an x, y, surface and decal.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x"> The X value for the Tile instance </param>
+        /// <param name="y"> The  </param>
         /// <param name="surface"></param>
-        public Tile(int x, int y, TileSurface surface)
+        public Tile(int x, int y, TileSurface surface=TileSurface.Void, TileDecal decal=TileDecal.None)
         {
-            TileID = $"T{x}x{y}";
             Coordinates = new Vector2D(x, y);
+            WriteTileID();
             Surface = surface;
+            Decal = decal;
         }
 
 
         /// <summary>
-        /// 
+        /// Sets the decal for a Tile.
         /// </summary>
-        /// <param name="decal"></param>
+        /// <param name="decal"> The new Tile decal </param>
         public void SetDecal( TileDecal decal )
         {
-            TileDecal = decal;
+            Decal = decal;
         }
 
 
         /// <summary>
-        /// 
+        /// Sets the surface for a Tile
         /// </summary>
-        /// <param name="surface"></param>
+        /// <param name="surface"> The new Surface </param>
         public void SetSurface( TileSurface surface )
         {
 
@@ -50,24 +54,44 @@ namespace CP_Dev_Tools.Src.Models
 
 
         /// <summary>
-        /// 
+        /// Sets the coordinates for a Tile
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x"> The new X value </param>
+        /// <param name="y"> The new Y value </param>
         public void SetCoordinates( int x, int y )
         {
+            if (Coordinates == null)
+                Coordinates = new Vector2D();
+
             Coordinates.X = x;
             Coordinates.Y = y;
+            WriteTileID();
+        }
+
+
+        /// <summary>
+        /// Set the coordinates for a Tile
+        /// </summary>
+        /// <param name="vector2"> The new Vector position for the Tile </param>
+        public void SetCoordinates(Vector2D vector2)
+        {
+            Coordinates = vector2;
         }
 
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="vector2"></param>
-        public void SetCoordinates(Vector2D vector2)
+        /// <returns></returns>
+        private void WriteTileID()
         {
-            Coordinates = vector2;
+            TileID = $"T{Coordinates.X}x{Coordinates.Y}";
+        }
+
+
+        public override string ToString()
+        {
+            return $"Tile(TileID={TileID}, Coordinates={Coordinates}, Surface={Surface}, Decal={Decal})";
         }
 
     }
@@ -78,13 +102,13 @@ namespace CP_Dev_Tools.Src.Models
     /// </summary>
     public enum TileSurface
     {
-        None    = 1,     // 0000001
-        Void    = 2,     // 0000010
-        Ocean   = 4,     // 0000100
-        Grass   = 8,     // 0001000
-        Sand    = 16,    // 0010000
-        Snow    = 32,    // 0100000
-        Stone   = 64,    // 1000000
+        None    = 0,     // Not used in the actual file system
+        Void    = 1,     // 000001
+        Ocean   = 2,     // 000010
+        Grass   = 4,     // 000100
+        Sand    = 8,     // 001000
+        Snow    = 16,    // 010000
+        Stone   = 32,    // 100000
     }
 
 
@@ -93,12 +117,12 @@ namespace CP_Dev_Tools.Src.Models
     /// </summary>
     public enum TileDecal
     {
-        None    = 1,     // 000000
-        Town    = 2,     // 000001
-        Road    = 4,     // 000010
-        River   = 8,     // 000100
-        Mountin = 16,    // 001000
-        Hils    = 32,    // 010000
-        Forest  = 64,    // 100000
+        None    = 1,     // 0000001
+        Town    = 2,     // 0000010
+        Road    = 4,     // 0000100
+        River   = 8,     // 0001000
+        Mountin = 16,    // 0010000
+        Hils    = 32,    // 0100000
+        Forest  = 64,    // 1000000
     }
 }

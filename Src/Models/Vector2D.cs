@@ -11,6 +11,17 @@ namespace CP_Dev_Tools.Src.Models
         public int X { get; set; }
         public int Y { get; set; }
 
+
+        /// <summary>
+        /// Creates a vector going to origo
+        /// </summary>
+        public Vector2D()
+        {
+            X = 0;
+            Y = 0;
+        }
+
+
         /// <summary>
         /// Create a new Vector2D class with given parameters
         /// </summary>
@@ -91,6 +102,12 @@ namespace CP_Dev_Tools.Src.Models
             double y = Y * Y;
 
             return Math.Sqrt(x + y);
+        }
+
+
+        public override string ToString()
+        {
+            return $"Vector(X={X}, Y={Y})";
         }
 
     }

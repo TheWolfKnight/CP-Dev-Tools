@@ -38,17 +38,6 @@ namespace CP_Dev_Tools.Src.WindowHandles
         public MainWindowHandle( MainWindow owner )
         {
             Owner = owner;
-            TempFileService tmpFile = new TempFileService();
-
-            Tile tmp = new Tile(25, 16, TileSurface.Stone);
-            tmp.SetDecal(TileDecal.River);
-            tmpFile.WriteData(tmp);
-
-            Tile tmp2 = new Tile(32, 64, TileSurface.Void);
-            tmp2.SetDecal(TileDecal.None);
-            tmpFile.WriteData(tmp2);
-
-            tmpFile.DumpFile();
         }
 
 
