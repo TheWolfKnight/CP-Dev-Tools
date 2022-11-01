@@ -54,24 +54,18 @@ namespace CP_Dev_Tools.Src.Managers
             }
             int i_tilesPerThread = (int)f_tilesPerThread;
 
-            for ( int i = 0, currentTileNr = 0; i < threadCount; i++, currentTileNr += i_tilesPerThread+1 )
+            for ( int i = 0, currentTileNr = 0; i < threadCount; i++, currentTileNr += i_tilesPerThread )
             {
                 if ( isNotWhole && i == threadCount-1 )
                     i_tilesPerThread++;
 
                 Thread t = new Thread(WriteTMPFiles);
-                ThreadData data = new ThreadData(currentTileNr, i_tilesPerThread, tmpFiles[i]);
+                ThreadData data = new ThreadData(i, currentTileNr, currentTileNr + i_tilesPerThread, tmpFiles[i]);
                 t.Start(data);
                 CurrentActiveThreads++;
             }
 
             while ( CurrentActiveThreads > 0 ) { }
-
-            for (int i = 0; i < tmpFiles.Count; i++ )
-            {
-                Console.WriteLine($"{i}:");
-                //tmpFiles[i].DumpFile();
-            }
 
             StitchFilesToggether( tmpFiles );
 
@@ -85,10 +79,10 @@ namespace CP_Dev_Tools.Src.Managers
         private static void WriteTMPFiles(object parameters)
         {
             ThreadData data = (ThreadData)parameters;
-            
+
             for ( int i = data.Start; i < data.Stop; i++ )
             {
-                CreateTile(i, data.TmpService);
+                data.TmpService.CreateTile(i, Dims, DefualtSurface);
             }
 
             CurrentActiveThreads--;
@@ -131,21 +125,9 @@ namespace CP_Dev_Tools.Src.Managers
 
 
         /// <summary>
-        /// Writes tiles to a specified file service
+        /// 
         /// </summary>
-        /// <param name="nr"> The nr of tile this is in comparison to when it was created </param>
-        /// <param name="fileService"> The TempFileService that is writen to </param>
-        private static void CreateTile(int nr, TempFileService fileService)
-        {
-            int y = (int)Math.Floor((double)nr / Dims[1]);
-            int x = nr - (y * Dims[1]);
-            Tile tmp = new Tile(x, y, DefualtSurface);
-            fileService.WriteData(tmp);
-
-            return;
-        }
-
-
+        /// <param name="list"></param>
         private void StitchFilesToggether(List<TempFileService> list)
         {
             foreach ( TempFileService item in list )
@@ -156,20 +138,42 @@ namespace CP_Dev_Tools.Src.Managers
         }
 
 
+        /// <summary>
+        /// Writes tiles to a specified file service
+        /// </summary>
+        /// <param name="nr"> The nr of tile this is in comparison to when it was created </param>
+        /// <param name="fileService"></param>
+        public void CreateTile(int nr, TempFileService fileService)
+        {
+            int y = (int)Math.Floor((double)nr / Dims[1]);
+            int x = nr - (y * Dims[1]);
+            Tile tmp = new Tile(x, y, DefualtSurface);
+            fileService.WriteData(tmp);
+
+            return;
+        }
     }
 
     internal struct ThreadData
     {
+        public int I;
         public int Start;
         public int Stop;
         public TempFileService TmpService;
 
-        public ThreadData( int a, int b, TempFileService c )
+        public ThreadData( int i, int a, int b, TempFileService c )
         {
+            I = i;
             Start = a;
             Stop = b;
             TmpService = c;
         }
+
+        public override string ToString()
+        {
+            return $"ThreadData(I={I}, Start={Start}, Stop={Stop}, TmpService={TmpService.TMPFilePath})";
+        }
+
     }
 
 }
