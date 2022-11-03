@@ -34,20 +34,14 @@ namespace CP_Dev_Tools.Frontend
             int x, y;
             try
             {
-                x = int.Parse(GetRichTextBoxContent(this.xResize));
-                y = int.Parse(GetRichTextBoxContent(this.yResize));
+                x = int.Parse(xResize.Text);
+                y = int.Parse(yResize.Text);
                 Caller.SizeWindowCall(new int[2] { x, y }, init: New);
                 this.Close();
             } catch ( FormatException )
             {
                 this.errLabel.Visibility = Visibility.Visible;
             }
-        }
-
-        private string GetRichTextBoxContent( RichTextBox textBox )
-        {
-            TextRange range = new TextRange(textBox.Document.ContentStart, textBox.Document.ContentEnd);
-            return range.Text;
         }
 
     }

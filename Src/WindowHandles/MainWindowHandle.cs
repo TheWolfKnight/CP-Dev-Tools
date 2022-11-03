@@ -35,7 +35,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// Spawns a new MainWindowHandle instance, sets the Owner field to the given owner parameter.
         /// </summary>
         /// <param name="owner"></param>
-        public MainWindowHandle( MainWindow owner )
+        public MainWindowHandle(MainWindow owner)
         {
             Owner = owner;
         }
@@ -75,23 +75,25 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// replaces the element under the mose with what is definded by the PlacmentItem Item field
         /// </summary>
         /// <param name="element"> The element under the mouse when the user clicks left mouse button </param>
-        public void MapCanvasLeftButtonDownEvent( FrameworkElement element )
+        public void MapCanvasLeftButtonDownEvent(FrameworkElement element)
         {
+
+            if (Item.Current == CurrentPlacementItem.None)
+                return;
+
             string elementNameProperty = element.Name;
 
-            bool[] h = new bool[2] { Item.Decal == TileDecal.None, Item.Surface == TileSurface.None };
+            if ( Item.Current == CurrentPlacementItem.Surface )
+            {
 
-            if (h[0] && !h[1])
+            } else if ( Item.Current == CurrentPlacementItem.Decal )
             {
-                // Triggers if the decal is active, and the tile surface is not
+
             }
-            else if (!h[0] && h[1])
-            {
-                // Triggers if the tile surface is active, and the decal is not
-            }
+
             else throw new UnrechableCodeException();
 
-            
+
         }
 
 
@@ -100,9 +102,9 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// then spawns a dialog box for the given element under the mouse with the specific options for that element
         /// </summary>
         /// <param name="element"> The element under the mouse when the right button is clicked </param>
-        public void MapCanvasRightButtonDownEvent( FrameworkElement element )
+        public void MapCanvasRightButtonDownEvent(FrameworkElement element)
         {
-            MapItemDetailsWindow detailsWindow = new MapItemDetailsWindow( element );
+            MapItemDetailsWindow detailsWindow = new MapItemDetailsWindow(element);
             detailsWindow.ShowDialog();
         }
 
@@ -197,13 +199,13 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// to the desired method
         /// </summary>
         /// <param name="element"> The framework element effcted by the mouse click </param>
-        public void EditChildElementClickEvent( FrameworkElement element )
+        public void EditChildElementClickEvent(FrameworkElement element)
         {
 
             bool init = true;
             int[] dims;
 
-            switch ( element.Name )
+            switch (element.Name)
             {
                 case "small":
                     dims = new int[] { 25, 25 };
@@ -239,7 +241,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// Detects the click of a TreeViewItem and then sets the field PlacementItem Item to the correct state
         /// </summary>
         /// <param name="element"> The framework element effected by the mouse click </param>
-        public void TreeViewMouseDownEvent( FrameworkElement element )
+        public void TreeViewMouseDownEvent(FrameworkElement element)
         {
             if (element.Parent.GetType().ToString() != "System.Windows.Controls.TreeViewItem")
                 return;
@@ -249,7 +251,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
 
             int r;
 
-            switch ( parent.Tag )
+            switch (parent.Tag)
             {
                 case "tile":
                     bool success = int.TryParse(element.Tag.ToString(), out r);
@@ -273,7 +275,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// Changes the field PlacementItem Item to the selected tile.
         /// </summary>
         /// <param name="i"> The TileSurface that the user selected </param>
-        private void HandlePlacemanetItemChangeTile( int i )
+        private void HandlePlacemanetItemChangeTile(int i)
         {
             TileSurface newTileSurface = (TileSurface)i;
             Item.SetSurface(newTileSurface);
@@ -286,7 +288,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// </summary>
         /// <param name="i"> The Decal that the user selected </param>
         /// <param name="ident"> An identifier for if the program to determin the potential need, for some program pre-setup </param>
-        private void HandlePlacementItemChangeDecal( int i, string ident )
+        private void HandlePlacementItemChangeDecal(int i, string ident)
         {
             throw new TBD();
         }
@@ -330,7 +332,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// </summary>
         /// <param name="path"> Path to the desired destination for the saved files </param>
         /// <param name="content"> The content to be saved, NOTE: should be change from a string with the content in it to something better, like making tmp files to house data and copying them </param>
-        /// <returns></returns>
+        /// <returns> Returns a thread, setup to start saving the current elements </returns>
         private Thread SpawnNewSaveThread(string path, string content)
         {
             Thread t = new Thread(() => SaveContent(path, content));
@@ -342,23 +344,20 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// Changes a tile from the MapCanvas child elements
         /// </summary>
         /// <param name="tile"> The tile perameters that will be changed by the method </param>
-        private void ChangeTile( FrameworkElement tile )
+        private void ChangeTile(FrameworkElement tile)
         {
             throw new TBD();
         }
 
-        
+
         /// <summary>
         /// Changes a decal on a tile
         /// </summary>
         /// <param name="decal"> The dacal parameters that will be changed by the method </param>
-        private void ChangeDecal( FrameworkElement decal )
+        private void ChangeDecal(FrameworkElement decal)
         {
             throw new TBD();
         }
-
-
-
     }
 
 
@@ -366,25 +365,36 @@ namespace CP_Dev_Tools.Src.WindowHandles
     {
         public TileSurface Surface { get; private set; }
         public TileDecal Decal { get; private set; }
+        public CurrentPlacementItem Current { get; private set; }
 
         public PlacementItem(TileSurface surface = TileSurface.None, TileDecal decal = TileDecal.None)
         {
             Surface = surface;
             Decal = decal;
+            Current = CurrentPlacementItem.None;
         }
 
         public void SetSurface(TileSurface surface)
         {
             Surface = surface;
             Decal = TileDecal.None;
+            Current = CurrentPlacementItem.Surface;
         }
 
         public void SetDecal(TileDecal decal)
         {
             Surface = TileSurface.None;
             Decal = decal;
+            Current = CurrentPlacementItem.Decal;
         }
+    }
 
+
+    internal enum CurrentPlacementItem
+    {
+        None,
+        Surface,
+        Decal,
     }
 
 }
