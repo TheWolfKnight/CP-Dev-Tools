@@ -13,7 +13,7 @@ namespace CP_Dev_Tools.Src.Managers
     {
         public static TileSurface DefualtSurface { get; private set; }
         private static int[] Dims { get; set; }
-        private TempFileService FileService;
+        private readonly TempFileService FileService;
 
         private static int CurrentActiveThreads;
 
@@ -40,8 +40,8 @@ namespace CP_Dev_Tools.Src.Managers
             int amt = Dims[0] * Dims[1];
             // The amount of threas that is needed to write the tmp file;
             // 25 * 25 = 625,
-            // Minimum of 1 thread will be used
-            int threadCount = (int)Math.Max(1, Math.Floor((double)amt / 625));
+            // Minimum of 1, Maximum of 10
+            int threadCount = (int)Math.Min(Math.Max(1, Math.Floor((double)amt / 625)), 10);
             List<TempFileService> tmpFiles = Enumerable.Range(0, threadCount).Select(i => new TempFileService()).ToList();
 
 
@@ -89,7 +89,7 @@ namespace CP_Dev_Tools.Src.Managers
         /// <summary>
         /// Task for threads to compleate
         /// </summary>
-        /// <param name="parameters"></param>
+        /// <param name="parameters"> An instance of the ThreadData structure. </param>
         private static void WriteTMPFiles(object parameters)
         {
             ThreadData data = (ThreadData)parameters;
@@ -110,10 +110,9 @@ namespace CP_Dev_Tools.Src.Managers
         public void Resize(int[] dims, TileSurface defaultSurface=TileSurface.Void)
         {
             throw new Exception("TBD");
-
             return;
-
         }
+
 
         /// <summary>
         /// Replaces the data of a specific tile, at the given coordinates
@@ -122,7 +121,6 @@ namespace CP_Dev_Tools.Src.Managers
         public void ChangeTile(Tile tile)
         {
             throw new Exception("TBD");
-
             return;
         }
 
@@ -169,7 +167,7 @@ namespace CP_Dev_Tools.Src.Managers
             return;
         }
     }
-
+ 
 
     internal struct ThreadData
     {
