@@ -43,6 +43,9 @@ namespace CP_Dev_Tools.Src.Managers
             // Minimum of 1 thread will be used
             int threadCount = (int)Math.Max(1, Math.Floor((double)amt / 625));
             List<TempFileService> tmpFiles = Enumerable.Range(0, threadCount).Select(i => new TempFileService()).ToList();
+            List<Thread> threads = new List<Thread>(threadCount);
+
+            Console.WriteLine(threads.Capacity);
 
             float f_tilesPerThread = amt / threadCount;
             bool isNotWhole = false;
@@ -54,26 +57,36 @@ namespace CP_Dev_Tools.Src.Managers
             }
             int i_tilesPerThread = (int)f_tilesPerThread;
 
+            Console.WriteLine($"thread count: {threadCount}");
+
             for ( int i = 0, currentTileNr = 0; i < threadCount; i++, currentTileNr += i_tilesPerThread+1 )
             {
+                Console.WriteLine("loop");
                 if ( isNotWhole && i == threadCount-1 )
                     i_tilesPerThread++;
 
-                Thread t = new Thread(WriteTMPFiles);
-                ThreadData data = new ThreadData(currentTileNr, i_tilesPerThread, tmpFiles[i]);
-                t.Start(data);
-                CurrentActiveThreads++;
+                threads.Add(new Thread(WriteTMPFiles));
+                ThreadData data = new ThreadData(i, currentTileNr, i_tilesPerThread, tmpFiles[i]);
+                threads[i].Start(data);
             }
 
-            while ( CurrentActiveThreads > 0 ) { }
-
-            for (int i = 0; i < tmpFiles.Count; i++ )
+            while ( true )
             {
-                Console.WriteLine($"{i}:");
-                //tmpFiles[i].DumpFile();
+                bool isDone = true;
+                foreach (Thread t in threads)
+                    if (t.IsAlive)
+                        isDone = false;
+                if (isDone)
+                    break;
             }
 
-            StitchFilesToggether( tmpFiles );
+
+            foreach ( TempFileService tmp in tmpFiles )
+            {
+                tmp.DumpFile();
+            }
+
+            //StitchFilesToggether( tmpFiles );
 
         }
 
@@ -85,13 +98,13 @@ namespace CP_Dev_Tools.Src.Managers
         private static void WriteTMPFiles(object parameters)
         {
             ThreadData data = (ThreadData)parameters;
-            
+
             for ( int i = data.Start; i < data.Stop; i++ )
             {
                 CreateTile(i, data.TmpService);
             }
 
-            CurrentActiveThreads--;
+            CurrentActiveThreads++;
         }
 
 
@@ -160,12 +173,14 @@ namespace CP_Dev_Tools.Src.Managers
 
     internal struct ThreadData
     {
+        public int I;
         public int Start;
         public int Stop;
         public TempFileService TmpService;
 
-        public ThreadData( int a, int b, TempFileService c )
+        public ThreadData( int i, int a, int b, TempFileService c )
         {
+            I = i;
             Start = a;
             Stop = b;
             TmpService = c;
