@@ -44,14 +44,22 @@ namespace CP_Dev_Tools.Src.Managers
             int threadCount = (int)Math.Max(1, Math.Floor((double)amt / 625));
             List<TempFileService> tmpFiles = Enumerable.Range(0, threadCount).Select(i => new TempFileService()).ToList();
 
+
+            // Figures out the amount of tiles each thread needs to write.
             float f_tilesPerThread = amt / threadCount;
             bool isNotWhole = false;
 
+            // Asserts if a thread needs to be corigated to get the right amt of
+            // tiles in the finished map file
             if (f_tilesPerThread % 1 != 0)
             {
                 isNotWhole = true;
                 f_tilesPerThread -=  f_tilesPerThread % 1;
             }
+
+            // Convets the tiles per thread to an int, this is always posible becouse
+            // of the last if statement. This is done to make sure that no thread tries
+            // write half a Tile to the file.
             int i_tilesPerThread = (int)f_tilesPerThread;
 
             for ( int i = 0, currentTileNr = 0; i < threadCount; i++, currentTileNr += i_tilesPerThread )
@@ -59,14 +67,20 @@ namespace CP_Dev_Tools.Src.Managers
                 if ( isNotWhole && i == threadCount-1 )
                     i_tilesPerThread++;
 
+                // Creates a new thread to write its tmp file, then
+                // starts the each thread and incroments the CurrentActiveThread
+                // field.
                 Thread t = new Thread(WriteTMPFiles);
-                ThreadData data = new ThreadData(i, currentTileNr, currentTileNr + i_tilesPerThread, tmpFiles[i]);
+                ThreadData data = new ThreadData(currentTileNr, currentTileNr + i_tilesPerThread, tmpFiles[i]);
                 t.Start(data);
                 CurrentActiveThreads++;
             }
 
+            // Waits til all thrads are done with their writes
             while ( CurrentActiveThreads > 0 ) { }
 
+            // Takes all the slave files and places their content
+            // in the master file, belonging to the TileManager Instance
             StitchFilesToggether( tmpFiles );
 
         }
@@ -82,7 +96,7 @@ namespace CP_Dev_Tools.Src.Managers
 
             for ( int i = data.Start; i < data.Stop; i++ )
             {
-                data.TmpService.CreateTile(i, Dims, DefualtSurface);
+                CreateTile(i, data.TmpService);
             }
 
             CurrentActiveThreads--;
@@ -95,7 +109,6 @@ namespace CP_Dev_Tools.Src.Managers
         /// <param name="dims"> Dimensions for the new tile set </param>
         public void Resize(int[] dims, TileSurface defaultSurface=TileSurface.Void)
         {
-
             throw new Exception("TBD");
 
             return;
@@ -108,13 +121,16 @@ namespace CP_Dev_Tools.Src.Managers
         /// <param name="tile"> The new data for a tile </param>
         public void ChangeTile(Tile tile)
         {
-
             throw new Exception("TBD");
 
             return;
         }
 
 
+        /// <summary>
+        /// Gets all the tiles in the tileset, from the TempFileService instance
+        /// </summary>
+        /// <returns> An IEnumerable of the tiles of the TempFileService </returns>
         public IEnumerable<Tile> TileSet()
         {
             foreach ( Tile tile in FileService.GetTiles() )
@@ -125,9 +141,9 @@ namespace CP_Dev_Tools.Src.Managers
 
 
         /// <summary>
-        /// 
+        /// Takes a list of file services and writes them all into the Master tmp file service
         /// </summary>
-        /// <param name="list"></param>
+        /// <param name="list"> The list of all slave file services </param>
         private void StitchFilesToggether(List<TempFileService> list)
         {
             foreach ( TempFileService item in list )
@@ -142,8 +158,8 @@ namespace CP_Dev_Tools.Src.Managers
         /// Writes tiles to a specified file service
         /// </summary>
         /// <param name="nr"> The nr of tile this is in comparison to when it was created </param>
-        /// <param name="fileService"></param>
-        public void CreateTile(int nr, TempFileService fileService)
+        /// <param name="fileService"> The file service that will write the tile into its tmp file </param>
+        public static void CreateTile(int nr, TempFileService fileService)
         {
             int y = (int)Math.Floor((double)nr / Dims[1]);
             int x = nr - (y * Dims[1]);
@@ -154,26 +170,18 @@ namespace CP_Dev_Tools.Src.Managers
         }
     }
 
+
     internal struct ThreadData
     {
-        public int I;
         public int Start;
         public int Stop;
         public TempFileService TmpService;
 
-        public ThreadData( int i, int a, int b, TempFileService c )
+        public ThreadData(int a, int b, TempFileService c)
         {
-            I = i;
             Start = a;
             Stop = b;
             TmpService = c;
         }
-
-        public override string ToString()
-        {
-            return $"ThreadData(I={I}, Start={Start}, Stop={Stop}, TmpService={TmpService.TMPFilePath})";
-        }
-
     }
-
 }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using System.IO;
-
 
 using CP_Dev_Tools.Src.Models;
 
@@ -14,12 +11,11 @@ namespace CP_Dev_Tools.Src.Services
 {
     public class TempFileService
     {
-
         public string TMPFilePath;
 
         /// <summary>
         /// Creates a new TempFileService instance, this will place a file in you local TEMP folder.
-        /// The Class implements a destructor to clean up after it self, but can fail it the program
+        /// The Class implements a destructor to clean up after it self, but can fail if the program
         /// is not closed correctly.
         /// </summary>
         public TempFileService()
@@ -31,7 +27,7 @@ namespace CP_Dev_Tools.Src.Services
                 info.Attributes = FileAttributes.Temporary;
             } catch ( Exception ex )
             {
-                Console.WriteLine( $"Failed to create a TEMP file, or set the attributes of it, please check the permisions of your acount", ex.Message );
+                throw new Exception( $"Failed to create a TEMP file, or set the attributes of it, please check the permisions of your acount", ex );
             }
         }
 
@@ -39,7 +35,7 @@ namespace CP_Dev_Tools.Src.Services
         /// <summary>
         /// Appends a new tile to the tmp file, this creates a new tile to be used on the screen.
         /// </summary>
-        /// <param name="chunk"></param>
+        /// <param name="tile"> The tile data to be writen to the end of the file </param>
         public void WriteData( Tile tile )
         {
             using ( StreamWriter writer = File.AppendText(TMPFilePath) )
@@ -55,8 +51,8 @@ namespace CP_Dev_Tools.Src.Services
         /// Writes a chunk at the given offset. WARNING: this is ment to overwrite data at the given offset,
         /// and cannot append to the file, if you want to write a new tile only give the function the new tile.
         /// </summary>
-        /// <param name="chunkStart"></param>
-        /// <param name="chunkData"></param>
+        /// <param name="chunkStart"> The offset at which the write process should be done </param>
+        /// <param name="chunkData"> The data to be writen at the designated offset </param>
         public void WriteData( int chunkStart, Tile chunkData )
         {
             string[] data = File.ReadAllText(TMPFilePath).Split('\n');
@@ -66,6 +62,10 @@ namespace CP_Dev_Tools.Src.Services
         }
 
 
+        /// <summary>
+        /// Writes a chunk of data to the end of the file at TMPFilePath.
+        /// </summary>
+        /// <param name="chunks"> The chunk of data to be writen </param>
         public void WriteData( string chunks )
         {
             using ( StreamWriter writer = File.AppendText(TMPFilePath) )
@@ -136,8 +136,8 @@ namespace CP_Dev_Tools.Src.Services
         private string ConvertTileToChunk( Tile tile )
         {
             string r = "";
-            r += $"{tile.Coordinates.X:x10} {tile.Coordinates.Y:x10} ";
-            r += $"{(int)tile.Surface:x10} {(int)tile.Decal:x10}";
+            r += $"{tile.Coordinates.X:x5} {tile.Coordinates.Y:x5} ";
+            r += $"{(int)tile.Surface:x2} {(int)tile.Decal:x2}";
             return r;
         }
 
@@ -157,7 +157,10 @@ namespace CP_Dev_Tools.Src.Services
                 int x = int.Parse(split[0], System.Globalization.NumberStyles.HexNumber);
                 int y = int.Parse(split[1], System.Globalization.NumberStyles.HexNumber);
                 tmp.SetCoordinates(x, y);
-            } catch ( FormatException ) { }
+            } catch ( FormatException fe )
+            {
+                throw new InvalidDataException("The tile could not be parsed for it's coordinates", fe);
+            }
             TileSurface surface = (TileSurface)int.Parse(split[2], System.Globalization.NumberStyles.HexNumber);
             TileDecal decal = (TileDecal)int.Parse(split[3], System.Globalization.NumberStyles.HexNumber);
             tmp.SetSurface(surface);
@@ -167,7 +170,7 @@ namespace CP_Dev_Tools.Src.Services
 
 
         /// <summary>
-        /// Deletes the tmp file when the program is done with it
+        /// Deletes the tmp file when the instance goes out of scope
         /// </summary>
         ~TempFileService()
         {

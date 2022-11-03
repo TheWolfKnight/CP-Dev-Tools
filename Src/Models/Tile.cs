@@ -80,15 +80,19 @@ namespace CP_Dev_Tools.Src.Models
 
 
         /// <summary>
-        /// 
+        /// Creates the ID for the tile, which is used when the item is placed.
+        /// This helps to get the tile from the file later
         /// </summary>
-        /// <returns></returns>
         private void WriteTileID()
         {
             TileID = $"T{Coordinates.X}x{Coordinates.Y}";
         }
 
 
+        /// <summary>
+        /// Returns the instance of the Tile class as a string.
+        /// </summary>
+        /// <returns> A string representing the Tile instance </returns>
         public override string ToString()
         {
             return $"Tile(TileID={TileID}, Coordinates={Coordinates}, Surface={Surface}, Decal={Decal})";
@@ -117,12 +121,12 @@ namespace CP_Dev_Tools.Src.Models
     /// </summary>
     public enum TileDecal
     {
-        None    = 1,     // 0000001
-        Town    = 2,     // 0000010
-        Road    = 4,     // 0000100
-        River   = 8,     // 0001000
-        Mountin = 16,    // 0010000
-        Hils    = 32,    // 0100000
-        Forest  = 64,    // 1000000
+        None    = 1,     // 000000
+        Town    = 2,     // 000001
+        Road    = 4,     // 000010
+        River   = 8,     // 000100
+        Mountin = 16,    // 001000
+        Hils    = 32,    // 010000
+        Forest  = 64,    // 100000
     }
 }
