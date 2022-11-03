@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CP_Dev_Tools"
         mc:Ignorable="d"
-        Title="CP Dev Tools" Height="1080" Width="1920" Initialized="MainWindow_Init">
+        Title="CP Dev Tools" WindowState="Maximized" WindowStyle="SingleBorderWindow" Height="1080" Width="1920" Initialized="MainWindow_Init">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="135*"/>
+            <ColumnDefinition Width="821*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
@@ -44,7 +48,7 @@
             </MenuItem>
         </Menu>
 
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" Grid.ColumnSpan="2">
 
             <TabItem Header="Map">
                 <Grid>
@@ -66,7 +70,6 @@
                                 <TreeViewItem Tag="decal" Header="Buildings">
                                     <TreeViewItem Header="Town"/>
                                     <TreeViewItem Header="Item Vender"/>
-                                    <TreeViewItem Header=""/>
                                 </TreeViewItem>
                                 <TreeViewItem Tag="decal" Header="Envierment">
                                     <TreeViewItem Header="River"/>
@@ -94,7 +97,7 @@
                             </TreeView>
                         </Grid>
                     </GroupBox>
-                    <GroupBox Grid.Column="1" Header="Map Editor">
+                    <GroupBox x:Name="CanvasBox"  Grid.Column="1" Header="Map Editor">
                         <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
                             <Canvas MouseRightButtonDown="MapCanvas_RightButtonDown" MouseLeftButtonDown="MapCanvas_LeftButtonDown" VerticalAlignment="Top" HorizontalAlignment="Left" Name="MapCanvas">
                             </Canvas>
@@ -149,8 +152,9 @@
             </TabItem>
 
         </TabControl>
-        
-        <StatusBar Grid.Row="2">
+
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2">
         </StatusBar>
+        <Image Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="138,-58,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

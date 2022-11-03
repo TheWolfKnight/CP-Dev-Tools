@@ -49,9 +49,6 @@ namespace CP_Dev_Tools.Src.Managers
             MapCanvas.Height = mapDims[1] * 19 + 40;
 
             TileManagerHolder = new TileManager(mapDims, defualtSurface);
-
-            TileManagerHolder.TileSet().ToList().ForEach(tile => Draw(tile));
-
         }
 
 

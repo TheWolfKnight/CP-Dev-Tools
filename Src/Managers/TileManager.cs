@@ -44,7 +44,6 @@ namespace CP_Dev_Tools.Src.Managers
             int threadCount = (int)Math.Min(Math.Max(1, Math.Floor((double)amt / 625)), 10);
             List<TempFileService> tmpFiles = Enumerable.Range(0, threadCount).Select(i => new TempFileService()).ToList();
 
-
             // Figures out the amount of tiles each thread needs to write.
             float f_tilesPerThread = amt / threadCount;
             bool isNotWhole = false;
@@ -71,6 +70,7 @@ namespace CP_Dev_Tools.Src.Managers
                 // starts the each thread and incroments the CurrentActiveThread
                 // field.
                 Thread t = new Thread(WriteTMPFiles);
+                t.IsBackground = true;
                 ThreadData data = new ThreadData(currentTileNr, currentTileNr + i_tilesPerThread, tmpFiles[i]);
                 t.Start(data);
                 CurrentActiveThreads++;

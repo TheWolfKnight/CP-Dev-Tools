@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:CP_Dev_Tools"
              StartupUri="FrontEnd\MainWindow.xaml">
     <Application.Resources>
-         
+        <Application x:Key="ShutdownHandling" ShutdownMode="OnMainWindowClose"/>
     </Application.Resources>
 </Application>

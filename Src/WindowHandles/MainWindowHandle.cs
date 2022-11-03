@@ -5,13 +5,11 @@ using System.Text;
 using System.Windows;
 using System.Threading;
 using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Controls;
 
 using CP_Dev_Tools.Frontend;
 using CP_Dev_Tools.Src.Models;
 using CP_Dev_Tools.Src.Managers;
-using CP_Dev_Tools.Src.Services;
 using CP_Dev_Tools.Src.Exceptions;
 
 using static CP_Dev_Tools.Src.Services.FileHandling;
@@ -55,7 +53,7 @@ namespace CP_Dev_Tools.Src.WindowHandles
         /// </summary>
         public void OpenClickEvent()
         {
-            using (OpenFileDialog fileDialog = new System.Windows.Forms.OpenFileDialog())
+            using (OpenFileDialog fileDialog = new OpenFileDialog())
             {
                 fileDialog.Filter = "JSON file (*.json)| *.json | All files (*.*) | *.*";
                 fileDialog.FilterIndex = 1;
